@@ -217,17 +217,16 @@ $('.bill-list').on('click','button',function(event){
 	switch($(this).attr('id'))
 	{
 		case 'checkBill':
-			$('#back-btn').css('visibility','visible');
 			setItemDetail(billIndex);
-			$('.bill-detail').fadeIn();
-			$('.header').one('click',function(e){
+			$('.cover').fadeIn(300);
+			$('.bill-detail').fadeIn(300);
+			$('#app').one('click',function(e){
 				e.stopPropagation();
 				switch($(e.target).attr('id'))
 				{	
-					case 'back-btn':
-						console.log("asdfasdfasdf");
-						$('#back-btn').css('visibility','hidden');
-						$('.bill-detail').fadeOut();
+					case 'cover':
+						$('.cover').fadeOut(300);
+						$('.bill-detail').fadeOut(300);
 						break;
 					default:
 						console.log($(e.target).attr('id'));
