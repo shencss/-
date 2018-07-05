@@ -218,15 +218,15 @@ $('.bill-list').on('click','button',function(event){
 	{
 		case 'checkBill':
 			setItemDetail(billIndex);
-			$('.cover').fadeIn(300);
-			$('.bill-detail').fadeIn(300);
+			$('.cover').fadeIn(200);
+			$('.bill-detail').fadeIn(200);
 			$('#app').one('click',function(e){
 				e.stopPropagation();
 				switch($(e.target).attr('id'))
 				{	
 					case 'cover':
-						$('.cover').fadeOut(300);
-						$('.bill-detail').fadeOut(300);
+						$('.cover').fadeOut(200);
+						$('.bill-detail').fadeOut(200);
 						break;
 					default:
 						console.log($(e.target).attr('id'));
