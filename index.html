@@ -16,8 +16,8 @@
 			<span class="header-btn" id="scan-add-btn">
 				<i class="iconfont" id="scan-btn">&#xe722;</i>
 			</span>
-
 		</div>
+
 		<div class="nav">
 			<ul class="nav-list">
 					<li class="nav-item" id="bills">
@@ -34,6 +34,7 @@
 					</li>
 				</ul>
 		</div>
+
 		<div class="body">
 			<div class="take-bill">
 				<button id="take-bill-now">报修</button>
@@ -69,100 +70,37 @@
 				
 				<input type="submit" id="submit" value="提交">
 			</form>
+
 			<ul class="bill-list">
-				<!-- 报修单item -->	
-				<li class="bill-item">
-					<span class="item-title" >惠普显示屏</span>
-					<span class="item-status">受理中</span><br>
-					<span class="item-time">7月1日 17:19</span>
-					<span class="bill-control" data="'+i+'">
-						<button id="checkBill" >查看</button><button id="cancelBill">撤销</button>
-					</span>					
+				<!-- 报单item -->	
+				<li class="bill-item">				
 				</li>
 			</ul>
 			<div class="bill-detail">
 				<!-- 订单详细table -->
-<span>订单详细信息</span><hr><table><tr><th>订单编号</th><td id="billId">KKKKK</td></tr><tr><th>订单时间</th><td id="billTime">2018-07-02 11:22</td></tr><tr><th>订单状态</th><td id="billStatus">受理中</td></tr><tr><th>设备名称</th><td id="deviceName">惠普显示屏</td></tr><tr><th>设备类型</th><td id="deviceType">显示屏<tr><th>维修机</th><td id="organization">A公司</td></tr><tr><th>预约时间</th><td id="Appointment">2018-07-05 14:00</td></tr><tr><th>维修地址</th><td id="address">华南理工大学B7学院楼101</td></tr><tr><th>联系电话</th><td id="phone">13888888888</td></tr><tr><th>故障描述</th><td id="description">无法正常卡机</td></tr></table><hr><div class="detail-btns"><button id='cancelBill'>取消订单</button><button id="contactStaff">联系维修员</button><button id="checkFinish">查看完工单</button><button id='billAgain'>再次报修</button></div>	
 			</div>
 			<ul class="device-list">
-				<li class="device-item">
-					<span class="item-title" >联想电脑</span>
-					<span class="item-status">受理中</span><br>
-					<span class="item-time">7月1日 17:19</span>
-					<span class="bill-control" data="'+i+'">
-						<button id="checkBill" >查看</button>
-					</span>					
-				</li>
+				<!-- 设备item -->
 			</ul> 
-			<!-- 先不显示
+	
 			<div class="device-detail">
-				<span>设备详细信息</span>
-				<hr>
-				<table>
-					<tr>
-						<th>设备编号</th>
-						<td>M001</td>
-					</tr>
-					<tr>
-						<th>设备名称</th>
-						<td>联想电脑</td>	
-					</tr>
-					<tr>
-						<th>设备类型</th>
-						<td>电脑</td>
-					</tr>
-					<tr>					
-						<th>维修历史</th>
-						<td>2018.6.29 15:00</td>
-					</tr>
-					<tr>
-						<th>维修人员</th>
-						<td>No.001</td>
-					</tr>
-					<tr>
-						<th>故障描述</th>
-						<td>无法开机,系统不断重启</td>
-					</tr>
-				</table>
-				<hr>	
-				<button>再次报修</button>
+				<!-- 设备详细table -->
 			</div>
 
-			
-			<div class="menu" id="menu">
-				<ul class="menu-list">
-					取消了
-					<li class="menu-item" data="takeBill">
-						<i class="fas fa-pen-square fa-2x"></i>
-						<span class="menu-text">报修</span>
-					</li>
-					
-					<li class="menu-item" data="bills">
-						<i class="fas fa-clipboard-list fa-2x"></i>
-						<span class="menu-text">我的报单</span>
-					</li>
-					<li class="menu-item" data="devices">
-						<i class="fa fa-cog fa-2x"></i>
-						<span class="menu-text">我的设备</span>
-					</li>
-					<li class="menu-item" data="contact">
-						<i class="fa fa-comment-dots fa-2x"></i>
-						<span class="menu-text">联系我们</span>
-					</li>
-				</ul>
-			</div>
-			-->
 			<div class="contact">
 				<div class="service"><i class="iconfont">&#xe6f0;</i><span>联系客服</span></div>
-				<div class="company"><i class="iconfont">&#xe6f0;</i><span>查看维修商</span></div>
+				<div class="company"><i class="iconfont">&#xe6f0;</i><span>查看维修机构</span></div>
 				<div class="complaints"><i class="iconfont">&#xe6e5;</i><span>投诉与建议</span></div>
 			</div>
+
 			<div class="cover" id="cover"></div>
+
 			<div class="prompt">
 				<button id="ok">确定</button>
 				<button id="no">取消</button>
 			</div>
 		</div>
+
 	</div>
 	<script src="jquery-1.11.1.min.js"></script>
 	<script src="main.js"></script>

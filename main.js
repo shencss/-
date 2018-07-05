@@ -4,8 +4,9 @@ var model = Model(),
 	render = Render();
 
 //清空数据
-
-
+//localStorage.s_devices = '{"deviceId":"85FG30UI","deviceStatus":"已维修","deviceName":"联想笔记本","deviceType":"电脑","histroy":[{"time":"2018年7月5日10:58","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}';
+//console.log(localStorage.s_devices);
+//console.log(localStorage.s_bills);
 
 //初始化
 render.init('.bill-list');
@@ -23,18 +24,23 @@ submitBtn.click(function(){
     billData.billId = getID();
     billData.billTime = getTime();
     billData.billStatus = '受理中';
+
+/*** 从服务器拉取设备信息
     deviceData.deviceId = getID();
     deviceData.deviceTime = getTime();
     deviceData.deviceStatus = '报单受理中';
-    $.each(t, function () {
-        billData[this.name] = this.value;
-    });
-    deviceData.deviceName = t[0].value;
+	deviceData.deviceName = t[0].value;
     deviceData.deviceType = t[1].value;
     deviceData.deviceStaff = 'No.001';
     deviceData.description = t[2].value;
-    model.addBill(JSON.stringify(billData));
     model.addDevice(JSON.stringify(deviceData));
+
+ **/
+    $.each(t, function () {
+        billData[this.name] = this.value;
+    });
+    model.addBill(JSON.stringify(billData));
+    
 
 });
 
@@ -103,9 +109,7 @@ $('.nav-item').click(function(event) {
 
 //报修单、设备列表渲染器
 function Render() {
-	var items,
-		itemTitle,
-		itemHTML='';
+	var items,item;
 	var init = function(el) {
 		//清空列表
 		$(el).html('');	
@@ -114,17 +118,23 @@ function Render() {
 			if(localStorage.s_bills) {
 				items = localStorage.s_bills.split('$$');
 				for(var i=0,len=items.length;i<len;i++){
-					item = JSON.parse(items[i]);			
-					$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button><button id="cancelBill">撤销</button></span></li>');
+					item = JSON.parse(items[i]);		
+					if(item.billStatus === '已完成') {
+						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button></span></li>');
+					}else {
+						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button><button id="cancelBill">撤销</button></span></li>');
+					}
 				}				
 			}			
 		//渲染设备列表		
 		}else if(el=='.device-list'){			
 			if(localStorage['s_devices']) {	
-				items = localStorage.s_devices.split('$$');						
-				for(var i=1; i<items.length; i++) {	
-					item = JSON.parse(items[i]);		
-					$(el).prepend('<li class="device-item"><span class="item-title" >'+item.deviceName+'</span><span class="item-status">'+item.deviceStatus+'</span><br><span class="item-time">设备编号:'+item.deviceId+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button></span></li>');
+				items = localStorage.s_devices.split('$$');	
+				console.log(items);				
+				for(var i=0; i<items.length; i++) {	
+					item = JSON.parse(items[i]);
+					console.log(item)		
+					$(el).prepend('<li class="device-item"><span class="item-title" >'+item.deviceName+'</span><span class="item-status">'+item.deviceStatus+'</span><br><span class="item-time">设备编号:'+item.deviceId+'</span><span class="device-control" data="'+i+'"><button id="checkDevice" >查看</button></span></li>');			
 				}
 
 			}
@@ -152,7 +162,6 @@ function Model() {
 		render.init('.bill-list');
 	};
 	var addDevice = function(b) {
-		alert(localStorage.s_devices);
 		if(localStorage.s_devices){
 			var arr = [localStorage.s_devices];
 			arr.push(b);
@@ -195,29 +204,26 @@ var setItemDetail = function(listName,index){
 		if(localStorage.s_bills) {
 			detailItem = JSON.parse(localStorage.s_bills.split('$$')[index]);
 		}
-		$('.bill-detail').html('<span>订单详细信息</span><hr><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'<tr><th>维修机</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table><hr><div class="detail-btns"><button id="contactStaff">联系维修员</button><button id="checkFinish">查看完工单</button><button id="billAgain">再次报修</button></div>');
+		$('.bill-detail').html('<span>订单详细信息</span><hr><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'<tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table><hr><div class="detail-btns"><button id="contactService">联系客服</button><button id="checkFinish">查看完工单</button><button id="billAgain">再次报修</button></div>');
 		if(detailItem.billStatus != '已完成'){
-		$('.detail-btns').prepend('<button id="cancelBill">取消订单</button>');
+		$('.detail-btns').prepend('<button id="cancelBill">撤销订单</button>');
 		}
 	}else if(listName == 'devices'){
 		if(localStorage.s_devices) {
 			detailItem = JSON.parse(localStorage.s_devices.split('$$')[index]);
 		}
-		$('.device-detail').html('<span>订单详细信息</span><hr><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'<tr><th>维修机</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table><hr><div class="detail-btns"><button id="contactStaff">联系维修员</button><button id="checkFinish">查看完工单</button><button id="billAgain">再次报修</button></div>');
-		if(detailItem.billStatus != '已完成'){
-		$('.detail-btns').prepend('<button id="cancelBill">取消订单</button>');
-		}	
+		$('.device-detail').html('<span>设备详细信息</span><hr><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>'+detailItem.histroy[0].time+' '+detailItem.histroy[0].organization+' '+detailItem.histroy[0].money+' '+detailItem.histroy[0].description+'</td></tr></table><hr><div class="detail-btns"><button id="checkWarranty">查看保修状况</button><button id="billAgain">再次报修</button></div>');
 	}
 }
 
-//在item中点击control按钮
+//在我的订单列表的item中点击control按钮
 $('.bill-list').on('click','button',function(event){
 	event.stopPropagation();
 	var billIndex = $(this).parent().attr('data');
 	switch($(this).attr('id'))
 	{
 		case 'checkBill':
-			setItemDetail(billIndex);
+			setItemDetail('bills',billIndex);
 			$('.cover').fadeIn(200);
 			$('.bill-detail').fadeIn(200);
 			$('#app').one('click',function(e){
@@ -228,8 +234,6 @@ $('.bill-list').on('click','button',function(event){
 						$('.cover').fadeOut(200);
 						$('.bill-detail').fadeOut(200);
 						break;
-					default:
-						console.log($(e.target).attr('id'));
 				}	
 			});
 			break;
@@ -260,17 +264,28 @@ $('.bill-list').on('click','button',function(event){
 	}
 });
 
-
-//点击查看设备详细信息
-$('#checkDevice').click(function(){
-	$('.back-btn').fadeIn(	);
-	$('.cover').fadeIn();
-	$('.device-detail').fadeIn();
-	$('.back-btn').one('click',function(){
-		$('.device-detail').fadeOut();
-		$('.back-btn').fadeOut(	);
-		$('.cover').fadeOut();
-	})
+//在我的设备列表的item中点击control按钮
+$('.device-list').on('click','button',function(event){
+	event.stopPropagation();
+	var deviceIndex = $(this).parent().attr('data');
+	switch($(this).attr('id'))
+	{
+		case 'checkDevice':
+			setItemDetail('devices',deviceIndex);
+			$('.cover').fadeIn(200);
+			$('.device-detail').fadeIn(200);
+			$('#app').one('click',function(e){
+				e.stopPropagation();
+				switch($(e.target).attr('id'))
+				{	
+					case 'cover':
+						$('.cover').fadeOut(200);
+						$('.device-detail').fadeOut(200);
+						break;
+				}	
+			});
+			break;			
+	}
 });
 
 

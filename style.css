@@ -64,10 +64,6 @@ li {
 	
 	
 }
-
-
-
-
 form {
 	position: relative;
 	top: 50px;
@@ -76,10 +72,7 @@ form {
 	z-index: 2;
 	display: none;
 	background-color: #edf0f1;
-
 }
-
-
 select {
 	height: 40px;
 	padding: 10px 8px;
@@ -92,7 +85,6 @@ select {
 	outline: none;
 	line-height: 40px;
 }
-
 input {
 
 	height: 20px;
@@ -103,14 +95,9 @@ input {
 	box-shadow: 1px 1px 2px rgba(0,0,0,.2);
 	border-radius: 6px;
 }
-
-
-
-
 input[type=date]::-webkit-inner-spin-button { 
 	visibility: hidden;
 }
-
 textarea {
 
 	margin-bottom: 20px;
@@ -121,7 +108,6 @@ textarea {
 	border-radius: 6px;
 	vertical-align: top;
 }
-
 #submit {
 	margin: 0 auto;
 	background-color: #2196F3;
@@ -130,10 +116,7 @@ textarea {
 	height: 40px;
 	cursor: pointer;
 	margin-bottom: 80px;
-	
-
 }
-
 .cover {
 	position: fixed;
 	top: 0;
@@ -144,7 +127,6 @@ textarea {
 	z-index: 3;
 	display: none;
 }
-
 .prompt {
 	position:fixed; 
 	left:0; 
@@ -153,8 +135,6 @@ textarea {
 	z-index: 4;	
 	transition: .3s ease;
 }
-
-
 .prompt button {
 	background-color: rgba(255, 255, 255, .8);
 	margin: 12px auto;
@@ -164,17 +144,16 @@ textarea {
 	font-size: 16px;
 	border-radius: 10px;
 	text-align: center;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+	border: none;
 	display: block;
 }
-
 #ok {
 	color: red;
 }
 #no {
 	color: #2196F3;
 }
-
 .bill-list,.device-list{
 	position: absolute;
 	top: 50px;
@@ -183,15 +162,11 @@ textarea {
 	height: 100%;
 	padding: 0;
 	margin: 0 auto;
-	z-index: 1;
-	
+	z-index: 1;	
 }
-
 .device-list {
 	display: none;
 }
-
-
 .bill-item,.device-item {
 	position: relative;
 	height: 60px;
@@ -202,7 +177,6 @@ textarea {
 	margin-bottom: 0.5px;
 	vertical-align: middle;
 }
-
 .bill-item:last-child,.device-item:last-child {
 	margin-bottom: 10px;
 }
@@ -218,23 +192,19 @@ textarea {
 	font-size: 15px;
 }
 
-
 .item-title,.device-title{
 	display: block;
 	
 	font-size: 18px;
 }
-
 .bill-control,.device-control {
 	float: right;
 	vertical-align: middle;
 	position: relative;
 	top: 2.5px;
-
-
 }
 
-.bill-item button,.device-item button,.histroy-item button{
+.bill-item button,.device-item button{
 	border-radius: 3px;
 	margin:0 5px;
 	height: 25px;
@@ -245,7 +215,7 @@ textarea {
 	font-size: 15px;
 	line-height: 23px;
 }
-#checkBill {
+#checkBill,#checkDevice {
 	border: .5px solid #a0cf67;
 	color: #a0cf67;
 }
@@ -253,7 +223,6 @@ textarea {
 	border: .5px solid #ff9966;
 	color: #ff9966;
 }
-
 .item-time {
 	font-weight: 100;
 	font-size: 1px;
@@ -264,9 +233,6 @@ textarea {
 .item-id {
 	float: left;
 }
-
-
-
 .take-bill{
 	position: fixed;
 	bottom: 50px;
@@ -287,9 +253,6 @@ textarea {
 	font-size: 15px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,.5);
 }
-
-
-
 .bill-detail,.device-detail {
 	position: fixed;
     left: 50%;
@@ -302,11 +265,8 @@ textarea {
 	background-color: #fff;	
 	text-align: center;
 	z-index: 4;
-	display: none;
-	
-	
+	display: none;	
 }
-
 .bill-detail table,.device-detail table
 {
 	width: 95%;
@@ -320,7 +280,6 @@ textarea {
 	font-weight: 200;
 	color: #888;
 }
-
  .bill-detail td,.device-detail td {
 	color: #000;
 	font-weight: 400;
@@ -329,12 +288,10 @@ textarea {
 	max-width: 70%;
 	text-align: left;
 }
-
 hr {
 	margin: 10px auto 0px auto;
 	width: 90%;
 }
-
 .detail-btns {
 	margin-top: 10px;
 }
@@ -351,9 +308,9 @@ hr {
 	line-height: 25px;
 }
 
-#contactStaff {
-	border: .5px solid #a0cf67;
-	color: #a0cf67;
+#contactService {
+	border: .5px solid #2196F3;
+	color: #2196F3	;
 }
 #checkFinish {
 	border: .5px solid #a0cf67;
@@ -362,6 +319,10 @@ hr {
 #billAgain {
 	border: .5px solid #2196F3	;
 	color: #2196F3;
+}
+#checkWarranty {
+	border: .5px solid #a0cf67;
+	color: #a0cf67;
 }
 
 
