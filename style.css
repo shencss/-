@@ -73,7 +73,7 @@ form {
 	display: none;
 	background-color: #edf0f1;
 }
-#take-device {
+#device-form {
 	height: 600px;
 }
 select {
@@ -111,7 +111,7 @@ textarea {
 	border-radius: 6px;
 	vertical-align: top;
 }
-#submit {
+#bill-submit,#device-submit {
 	margin: 0 auto;
 	background-color: #2196F3;
 	color: #FFF;
@@ -149,6 +149,7 @@ textarea {
 	text-align: center;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
 	border: none;
+	cursor: pointer;
 	display: block;
 }
 #ok {
@@ -349,7 +350,7 @@ hr {
 	border: .5px solid #a0cf67;
 	color: #a0cf67;
 }
-#billAgain {
+#billAgain,#billNow {
 	border: .5px solid #2196F3	;
 	color: #2196F3;
 }

@@ -39,7 +39,10 @@
 			<div class="take-bill-now">
 				<button id="take-bill-now">报修</button>
 			</div>
-			<form action="" id="take-bill">
+			<!-- 这个iframe是为了表单提交时不刷新页面 -->
+			<iframe name='frameFile' style='display: none;'></iframe>
+
+			<form action="" id="bill-form" target="frameFile">
 				<label for="deviceName">设备名称:</label>
 				<input type="text" name="deviceName" placeholder="请输入设备名称"><br>
 				<label for="deviceType">设备类型:</label>
@@ -68,10 +71,10 @@
 				
 				<i id="location" class="fas fa-map-marker-alt fa-2x"></i><br>
 				
-				<input type="submit" id="submit" value="提交">
+				<input type="submit" id="bill-submit" value="提交">
 			</form>
 
-			<form action="" id="take-device">
+			<form action="" id="device-form" target="frameFile">
 				<label for="deviceName">设备名称:</label>
 				<input type="text" name="deviceName" placeholder="请输入设备名称"><br>
 				<label for="deviceType">设备类型:</label>
@@ -83,21 +86,19 @@
 					<option value="配件">配件</option>
 					<option value="其他">其他</option>
 				</select><br>		
-				<input type="submit" id="submit" value="提交">
+				<input type="submit" id="device-submit" value="提交">
 			</form>
 
 			<ul class="bill-list">
 				<!-- 报单item -->	
-				<li class="bill-item">				
-				</li>
 			</ul>
 			<div class="bill-detail">
 				<!-- 订单详细table -->
 			</div>
+			
 			<ul class="device-list">
 				<!-- 设备item -->
 			</ul> 
-	
 			<div class="device-detail">
 				<!-- 设备详细table -->
 			</div>
