@@ -325,10 +325,11 @@ hr {
 .device-detail  #device-histroy {
 	width: 85%;
 	font-size: 12px;
-	background-color: #EEE;
+	background-color: #edf0f1;
 	padding: 0;
 	border-radius: 4px;
 	margin-bottom: 10px;
+	border: 1px solid #2196F3;
 	
 }
 .device-detail  #device-histroy th,.device-detail  #device-histroy td {
