@@ -46,67 +46,63 @@ submitBtn.click(function(){
 
 
 
-//导航呼出页面种类
-var MenuItemFunc = (function () {
-	var listPage = function(type) {
-		if(type=='bills'){		
-			$('.title').text('我的报单');
-			$('#back-btn').css('visibility','hidden');
-			$('#scan-add-btn').css('visibility','visible');
-			$('#scan-add-btn').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');
-			$('form').fadeOut(100);
-			$('.back-btn').fadeOut(10);
-			$('.device-list').fadeOut(10);
-			$('.contact').fadeOut(10);
-			$('.bill-list').fadeIn(10);
-			$('.take-bill').css('bottom','50px');
+//页面呼出函数
+var PageFunc = function (type) {
+	if(type == 'bills'){		
+		$('.title').text('我的报单');
+		$('#nav-bills').css('color','#2196F3').siblings().css('color','#999');
+		$('#back-btn').css('visibility','hidden');
+		$('#scan-add-btn').css('visibility','visible');
+		$('#scan-add-btn').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');
+		$('form').fadeOut(100);
+		$('.back-btn').fadeOut(10);
+		$('.device-list').fadeOut(10);
+		$('.contact').fadeOut(10);
+		$('.bill-list').fadeIn(10);
+		$('.take-bill-now').css('bottom','50px');
 
-		}else if(type=='devices'){
-			$('.title').text('我的设备');
-			$('#back-btn').css('visibility','hidden');
-			$('#scan-add-btn').css('visibility','visible');
-			$('#scan-add-btn').html('<i class="iconfont" id="add-btn">&#xe6df;</i>');
-			$('form').fadeOut(100);
-			$('.back-btn').fadeOut(10);
-			$('.bill-list').fadeOut(10);
-			$('.device-list').fadeIn(10);
-			$('.contact').fadeOut(10);
-			$('.take-bill').css('bottom','50px');
-		}
-	};
+	}else if(type == 'devices'){
+		$('.title').text('我的设备');
+		$('#nav-devices').css('color','#2196F3').siblings().css('color','#999');
+		$('#back-btn').css('visibility','hidden');
+		$('#scan-add-btn').css('visibility','visible');
+		$('#scan-add-btn').html('<i class="iconfont" id="add-btn">&#xe6df;</i>');
+		$('form').fadeOut(100);
+		$('.back-btn').fadeOut(10);
+		$('.bill-list').fadeOut(10);
+		$('.device-list').fadeIn(10);
+		$('.contact').fadeOut(10);
+		$('.take-bill-now').css('bottom','50px');
 
-	var contact = function() {
+	}else if(type == 'contact') {
 		$('.title').text('联系我们');
+		$('#nav-contact').css('color','#2196F3').siblings().css('color','#999');
 		$('#back-btn').css('visibility','hidden');
 		$('#scan-add-btn').css('visibility','hidden');
-		$('#scan-add-btn').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');
 		$('form').fadeOut(100);
 		$('.back-btn').fadeOut(10);
 		$('.device-list').fadeOut(10);
 		$('.bill-list').fadeOut(10);
 		$('.contact').fadeIn(10);
-		$('.take-bill').css('bottom','-50px');
-	};
-	return {
-		listPage: listPage,
-		contact:contact
-	};
-})();
+		$('.take-bill-now').css('bottom','-50px');
+	}
+};
+//初始显示报单页
+PageFunc('bills');
 
-//菜单选项调用页面
+//菜单选项切换页面
 $('.nav-item').click(function(event) {
 	var data = $(this).attr('id');
-	$(this).siblings().css('color','#999');
-	$(this).css('color','#2196F3');
+
 	switch(data) {
-		case 'bills':
-			MenuItemFunc.listPage('bills');
+		case 'nav-bills':
+			PageFunc('bills');
 			break;
-		case 'devices':
-			MenuItemFunc.listPage('devices');
+		case 'nav-devices':
+			PageFunc('devices');
 			break;
-		case 'contact':
-			MenuItemFunc.contact();
+		case 'nav-contact':
+			PageFunc('contact');
 			break;
 		default:
 			console.log('no data');
