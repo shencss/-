@@ -136,7 +136,7 @@ textarea {
 	right:0; 
 	bottom: -150px;
 	z-index: 4;	
-	transition: .3s ease;
+	transition: .4s ease;
 }
 .prompt button {
 	background-color: rgba(255, 255, 255, .8);
