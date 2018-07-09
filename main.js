@@ -14,37 +14,6 @@ render.init('.bill-list');
 render.init('.device-list');
 
 
-//点击提交报修单
-var submitBtn = $('#bill-submit');
-submitBtn.click(function(){
-	var billData = {};
-    var t = $('#bill-form').serializeArray();
-    billData.billId = getID();
-    billData.billTime = getTime();
-    billData.billStatus = '受理中';
-    $.each(t, function () {
-        billData[this.name] = this.value;
-    });
-    model.addItem('s_bills',JSON.stringify(billData));
-    $('#bill-form').fadeOut(100);
-    PageFunc('bills');
-});
-//点击提交设备
-var submitBtn = $('#device-submit');
-submitBtn.click(function(){
-	var deviceData = {};
-    var t = $('#device-form').serializeArray();
-    deviceData.deviceId = getID();
-    deviceData.deviceStatus = '未报修';
-    deviceData.histroy = [];
-    $.each(t, function () {
-        deviceData[this.name] = this.value;
-    });
-    model.addItem('s_devices',JSON.stringify(deviceData));
-    $('#device-form').fadeOut(100);
-    PageFunc('devices');
-});
-
 //页面呼出函数
 var PageFunc = function (type) {
 	if(type == 'bills'){		
@@ -58,7 +27,7 @@ var PageFunc = function (type) {
 		$('.device-list').fadeOut(100);
 		$('.contact').fadeOut(100);
 		$('.bill-list').fadeIn(100);
-		$('.take-bill-now').css('bottom','50px');
+		$('#take-bill-now').css('bottom','50px');
 
 	}else if(type == 'devices'){
 		$('.title').text('我的设备');
@@ -71,7 +40,7 @@ var PageFunc = function (type) {
 		$('.bill-list').fadeOut(100);
 		$('.device-list').fadeIn(100);
 		$('.contact').fadeOut(100);
-		$('.take-bill-now').css('bottom','50px');
+		$('#take-bill-now').css('bottom','50px');
 
 	}else if(type == 'contact') {
 		$('.title').text('联系我们');
@@ -83,7 +52,7 @@ var PageFunc = function (type) {
 		$('.device-list').fadeOut(100);
 		$('.bill-list').fadeOut(100);
 		$('.contact').fadeIn(100);
-		$('.take-bill-now').css('bottom','-50px');
+		$('#take-bill-now').css('bottom','-50px');
 	}
 };
 //初始显示报单页
@@ -186,7 +155,7 @@ var setItemDetail = function(listName,index){
 		if(localStorage.s_bills) {
 			detailItem = getJSONArray('s_bills')[index];
 		}
-		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span>订单详细信息</span><hr><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'<tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table><hr><div class="detail-btns"><button id="billAgain">再次报修</button><button id="checkFinish">查看完工单</button><button id="contactService">联系客服</button></div>');
+		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'<tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table></div><hr><div class="detail-btns"><button id="billAgain">再次报修</button><button id="checkFinish">查看完工单</button><button id="contactService">联系客服</button></div>');
 		if(detailItem.billStatus != '已完成'){
 		$('.detail-btns').append('<button id="cancelBill">撤销订单</button>');
 		}
@@ -195,9 +164,9 @@ var setItemDetail = function(listName,index){
 			detailItem = getJSONArray('s_devices')[index];
 		}
 		if(detailItem.histroy !== undefined && detailItem.histroy.length != 0){
-			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span>设备详细信息</span><hr><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>∨</td></tr></table><div id="histroy"><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money	+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money	+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table></div><hr><div class="detail-btns"><button id="checkWarranty">查看保修状况</button><button id="billNow">立即报修</button></div>');
+			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">设备详细信息</span><hr><div class="table-container"><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>∨</td></tr></table><div id="histroy"><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money	+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money	+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table><table id="device-histroy"><tr><th>维修时间</th><td>'+detailItem.histroy[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.histroy[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.histroy[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.histroy[0].money+'</td></tr></table></div></div><hr><div class="detail-btns"><button id="checkWarranty">查看保修状况</button><button id="billNow">立即报修</button></div>');
 		}else {
-			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span>设备详细信息</span><hr><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>无</td></tr></table><hr><div class="detail-btns"><button id="checkWarranty">查看保修状况</button><button id="billNow">立即报修</button></div>');
+			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">设备详细信息</span><hr><div class="table-container"><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>无</td></tr></table></div><hr><div class="detail-btns"><button id="checkWarranty">查看保修状况</button><button id="billNow">立即报修</button></div>');
 		}
 	}
 }
@@ -354,20 +323,42 @@ function getTime() {
 }
 //报修函数
 function takeBill(e,name,type,description,organization,phone,address) {
-	$('.title').text('报修');
-	$('#bill-form').fadeIn(100);
-	$('#scan-add-btn').css('visibility','hidden');
-	$('#back-btn').css('visibility','visible').one('click',function(){
-		$('#back-btn').css('visibility','hidden');		
-		$('#bill-form').fadeOut(100);
-		$('#scan-add-btn').css('visibility','visible');
-	});
 	$('#bill-form input[name="deviceName"]').val(name);
 	$('#bill-form select[name="deviceType"]').val(type);
 	$('#bill-form textarea[name="description"]').val(description);
 	$('#bill-form select[name="organization"]').val(organization);
 	$('#bill-form input[name="phone"]').val(phone);
 	$('#bill-form input[name="address"]').val(address);
+	$('#bill-form').fadeIn(100);
+	$('.cover').fadeIn(100);
+	$('#app').on('click',function(e){
+		e.stopPropagation();
+		//捕获以及处理在详细信息上的点击事件
+		switch($(e.target).attr('id'))
+		{	
+			case 'cover':
+			case 'close-btn':
+				$('.cover').fadeOut(100);
+				$('#bill-form').fadeOut(100);
+				$('#app').unbind();
+				break;
+			//点击提交报修单
+			case 'bill-submit':
+				var billData = {};
+			    var t = $('#bill-form').serializeArray();
+			    billData.billId = getID();
+			    billData.billTime = getTime();
+			    billData.billStatus = '受理中';
+			    $.each(t, function () {
+			        billData[this.name] = this.value;
+			    });
+			    model.addItem('s_bills',JSON.stringify(billData));
+			    $('.cover').fadeOut(100);
+			    $('#bill-form').fadeOut(100);
+			    $('#app').unbind();
+				break;
+		}	
+	});
 }
 //点击悬浮圆圈报修
 $('#take-bill-now').click(takeBill);
@@ -375,14 +366,35 @@ $('#take-bill-now').click(takeBill);
 $('#scan-add-btn').click(function(e){
 	switch($(this).children().attr('id')){
 		case 'add-btn':
-			$('.title').text('添加设备');
-			$('#scan-add-btn').css('visibility','hidden');
+			$('.cover').fadeIn(100);
 			$('#device-form').fadeIn(100);
-			$('#back-btn').css('visibility','visible').one('click',function(){
-				$('#back-btn').css('visibility','hidden');
-				$('#scan-add-btn').css('visibility','visible');		
-				$('#device-form').fadeOut(100);
-				$('.title').text('我的设备');
+			$('#app').on('click',function(e){
+				e.stopPropagation();
+				//捕获以及处理在详细信息上的点击事件
+				switch($(e.target).attr('id'))
+				{	
+					case 'cover':
+					case 'close-btn':
+						$('.cover').fadeOut(100);
+						$('#device-form').fadeOut(100);
+						$('#app').unbind();
+						break;
+					//点击提交设备
+					case 'device-submit':
+						var deviceData = {};
+					    var t = $('#device-form').serializeArray();
+					    deviceData.deviceId = getID();
+					    deviceData.deviceStatus = '未报修';
+					    deviceData.histroy = [];
+					    $.each(t, function () {
+					        deviceData[this.name] = this.value;
+					    });
+					    model.addItem('s_devices',JSON.stringify(deviceData));
+					    $('.cover').fadeOut(100);
+					    $('#device-form').fadeOut(100);
+					    $('#app').unbind();
+						break;
+				}	
 			});
 			break;
 		case 'scan-btn':

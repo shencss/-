@@ -20,6 +20,11 @@ li {
 	list-style: none;
 }
 
+hr {
+	margin: 10px auto;
+	width: 80%;
+	border: 0.5px solid #2196F3;
+}
 
 .header {
 	position: fixed;
@@ -60,65 +65,70 @@ li {
 
 
 .body {	
-	position: relative;
-	
-	
-}
-form {
-	position: relative;
+	position: absolute;
 	top: 50px;
-	padding-top: 15px;
-	text-align: center;
-	z-index: 2;
-	display: none;
-	background-color: #edf0f1;
+	bottom: 50px;
+	width: 100%;
+	overflow-y: scroll;
 }
-#device-form {
-	height: 600px;
+
+form {
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    border-radius: 10px;
+    box-shadow:1px 1px 1px 2px rgba(0, 0, 0, .1);
+   	padding: 25px 0;
+	background-color: #fff;	
+	text-align: center;
+	z-index: 4;
+	display: none;
+	max-height: 500px;
+	overflow: scroll;
+}
+.form-title {
+	color: #2196F3;
+}
+form hr {
+	margin-bottom: 20px;
 }
 select {
 	height: 40px;
-	padding: 10px 8px;
+	width: 196px;
+	padding: 0 8px;
 	margin-bottom: 20px;
-	width: 316px;
-	border: none;
-	box-shadow: 1px 1px 2px rgba(0,0,0,.2);
-	border-radius: 6px;
+	border: 1px solid #2196F3;
+	border-radius: 5px;
 	overflow: hidden;
 	outline: none;
-	line-height: 40px;
 }
 input {
-
-	height: 20px;
+	height: 18px;
+	width: 178px;
 	margin-bottom: 20px;
-	width: 300px;
 	padding: 10px 8px;
-	border: none;
-	box-shadow: 1px 1px 2px rgba(0,0,0,.2);
-	border-radius: 6px;
+	border: 1px solid #2196F3;
+	border-radius: 5px;
 }
 input[type=date]::-webkit-inner-spin-button { 
 	visibility: hidden;
 }
 textarea {
-
 	margin-bottom: 20px;
-	width: 300px;
 	padding: 12px 8px;
-	border: none;
-	box-shadow: 1px 1px 2px rgba(0,0,0,.3);
-	border-radius: 6px;
+	border: 1px solid #2196F3;
+	border-radius: 5px;
 	vertical-align: top;
 }
 #bill-submit,#device-submit {
-	margin: 0 auto;
+	margin: 10px auto;
 	background-color: #2196F3;
 	color: #FFF;
 	width: 80px;
 	height: 40px;
 	cursor: pointer;
-	margin-bottom: 80px;
 }
 .cover {
 	position: fixed;
@@ -159,11 +169,7 @@ textarea {
 	color: #2196F3;
 }
 .bill-list,.device-list{
-	position: absolute;
-	top: 50px;
-	left: 0;
-	width: 100%;
-	height: 100%;
+	
 	padding: 0;
 	margin: 0 auto;
 	z-index: 1;
@@ -171,18 +177,15 @@ textarea {
 }
 
 .bill-item,.device-item {
-	position: relative;
+
 	height: 60px;
 	padding: 8px 8px;
 	background-color: #fff;
 	border-bottom: .5px solid rgba(0, 0, 0, .3);
-	overflow: auto;
 	margin-bottom: 0.5px;
 	vertical-align: middle;
 }
-.bill-item:last-child,.device-item:last-child {
-	margin-bottom: 10px;
-}
+
 .bill-item span,.device-item span,.histroy-item span{
 	display: inline-block;
 	vertical-align: middle;
@@ -237,18 +240,14 @@ textarea {
 .item-id {
 	float: left;
 }
-.take-bill-now{
+
+#take-bill-now {
 	position: fixed;
 	bottom: 50px;
-	left:0; 
-	right:0; 
-	text-align: center;
-	transition: bottom .3s linear;
-	z-index: 2;
-}
-#take-bill-now {
+	left: 50%;
+	transform: translateX(-50%);
 	margin: 20px auto;
-	border-radius: 30px;
+	border-radius: 50%;
 	background-color: #2196F3;
 	color: #FFF;
 	height: 60px;
@@ -257,6 +256,8 @@ textarea {
 	font-size: 15px;
 	box-shadow: 1px 1px 2px rgba(0,0,0,.5);
 	cursor: pointer;
+	z-index: 2;
+	transition: bottom .5s ease-in-out;
 }
 .bill-detail,.device-detail {
 	position: fixed;
@@ -271,9 +272,13 @@ textarea {
 	text-align: center;
 	z-index: 4;
 	display: none;
-	max-height: 500px;
+	max-height: 75%;
 }
-.bill-detail #close-btn,.device-detail #close-btn {
+.table-title {
+	color: #2196F3;
+}
+
+#close-btn {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -281,8 +286,11 @@ textarea {
 	transform: rotate(45deg);
 	cursor: pointer;
 }
-.bill-detail table,.device-detail table
-{
+.table-container {
+	max-height: 350px;
+	overflow-y: scroll;
+}
+.bill-detail table,.device-detail table{
 	width: 95%;
 	padding: 5px;
 	margin: 0 auto;
@@ -301,13 +309,10 @@ textarea {
 	float: right;
 	max-width: 70%;
 	text-align: left;
-}
-hr {
-	margin: 10px auto 0px auto;
-	width: 90%;
+	word-break: break-all;word-wrap: break-word;
 }
 .detail-btns {
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 .detail-btns button,.detail-btns button {
@@ -335,11 +340,8 @@ hr {
 .device-detail  #device-histroy th,.device-detail  #device-histroy td {
 	margin: 0;
 }
-.device-detail #histroy {
-	max-height: 270px;
-	overflow: scroll;
-}
-.device-detail #histroy::-webkit-scrollbar {
+
+.body::-webkit-scrollbar,.table-container::-webkit-scrollbar, form::-webkit-scrollbar {
 	width: 0;
 }
 
