@@ -42,7 +42,7 @@
 			<!-- 这个iframe是为了表单提交时不刷新页面 -->
 			<iframe name='frameFile' style='display: none;'></iframe>
 
-			<form action="" id="bill-form" >
+			<form action="" id="bill-form" target="frameFile">
 				<label for="deviceName">设备名称:</label>
 				<input type="text" name="deviceName" placeholder="请输入设备名称"><br>
 				<label for="deviceType">设备类型:</label>
@@ -55,8 +55,7 @@
 					<option value="其他">其他</option>
 				</select><br>
 				<label for="description">故障描述:</label>
-				<textarea name="description" cols="30" rows="6" placeholder="请输入故障描述">
-				</textarea><br>
+				<textarea name="description" cols="30" rows="6" placeholder="请输入故障描述"></textarea><br>
 				<label for="Appointment">预约时间:</label>
 				<input type="date" name="Appointment" placeholder="请输入预约时间"><br>
 				<label for="organization">维修公司:</label>
