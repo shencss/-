@@ -16,15 +16,20 @@ render.init('.device-list');
 
 //点击提交报修单
 var submitBtn = $('#bill-submit');
-submitBtn.click(function(){
+submitBtn.click(function(e){
+	var Info = ['你还没有输入设备名称！','你还没有选择设备类型！','你还没有输入故障描述！','你还没有选择预约时间！','你还没有选择维修公司！','你还没有输入联系电话！','你还没有输入维修地址！']
+	var t = $('#bill-form').serializeArray();
+	for(var i = 0, len = t.length; i < len; i++){
+		if(t[i].value == ''){
+    		$('#bill-form').append('<br><span>' + Info[i] + '</span>');
+    		return false;
+    	}
+	}
 	var billData = {};
-    var t = $('#bill-form').serializeArray();
     billData.billId = getID();
     billData.billTime = getTime();
     billData.billStatus = '受理中';
-    $.each(t, function () {
-        billData[this.name] = this.value;
-    });
+
     model.addItem('s_bills',JSON.stringify(billData));
     $('#bill-form').fadeOut(100);
     PageFunc('bills');
@@ -350,6 +355,9 @@ function getTime() {
 	if(hour < 10){
 		hour = '0'+hour;
 	}
+	if(minute < 10){
+		minute = '0'+minute;
+	}
 	return year+'年'+month+'月'+day+'日'+hour+':'+minute;
 }
 //报修函数
@@ -359,7 +367,8 @@ function takeBill(e,name,type,description,organization,phone,address) {
 	$('#scan-add-btn').css('visibility','hidden');
 	$('#back-btn').css('visibility','visible').one('click',function(){
 		$('#back-btn').css('visibility','hidden');		
-		$('#bill-form').fadeOut(100);
+		$('#bill-form').fadeOut();
+		PageFunc('bills');
 		$('#scan-add-btn').css('visibility','visible');
 	});
 	$('#bill-form input[name="deviceName"]').val(name);

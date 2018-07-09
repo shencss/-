@@ -1,5 +1,6 @@
 body{
 	width:100%;
+	height: 100%;
 	margin:0;
 	padding:0;
 	overflow: auto;
@@ -19,7 +20,6 @@ div, ul, li,hr{
 li {
 	list-style: none;
 }
-
 
 .header {
 	position: fixed;
@@ -61,17 +61,16 @@ li {
 
 .body {	
 	position: relative;
-	
-	
 }
 form {
 	position: relative;
 	top: 50px;
-	padding-top: 15px;
+	bottom: 50px;
+	height: 800px;
 	text-align: center;
 	z-index: 2;
 	display: none;
-	background-color: #edf0f1;
+	background-color: #FFF;
 }
 #device-form {
 	height: 600px;
@@ -118,7 +117,6 @@ textarea {
 	width: 80px;
 	height: 40px;
 	cursor: pointer;
-	margin-bottom: 80px;
 }
 .cover {
 	position: fixed;
@@ -325,11 +323,10 @@ hr {
 .device-detail  #device-histroy {
 	width: 85%;
 	font-size: 12px;
-	background-color: #edf0f1;
+	background-color: #EEE;
 	padding: 0;
 	border-radius: 4px;
 	margin-bottom: 10px;
-	border: 1px solid #2196F3;
 	
 }
 .device-detail  #device-histroy th,.device-detail  #device-histroy td {
@@ -414,9 +411,6 @@ hr {
 	z-index: 3;
 	width: 100%;
 	box-shadow: 0 -1px 2px rgba( 0, 0, 0, 0.25);
-
-
-	
 }
 
 .nav ul {
