@@ -19,19 +19,15 @@ var PageFunc = function (type) {
 	if(type == 'bills'){		
 		$('.title').text('我的报单');
 		$('#nav-bills').css('color','#2196F3').siblings().css('color','#999');
-		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');
-		
+		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');	
 		render.init('.bill-list');
-
 		$('#take-bill-now').css('bottom','50px');
 
 	}else if(type == 'devices'){
 		$('.title').text('我的设备');
 		$('#nav-devices').css('color','#2196F3').siblings().css('color','#999');
 		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="add-btn">&#xe6df;</i>');
-
 		render.init('.device-list');
-
 		$('#take-bill-now').css('bottom','50px');
 
 	}else if(type == 'contact') {
@@ -71,7 +67,6 @@ function Render() {
 	var items,item;
 	var init = function(el) {
 		//清空列表
-		
 		$(el).html('');	
 		//渲染报修单列表
 		if(el=='.bill-list'){
@@ -85,7 +80,9 @@ function Render() {
 					}else {
 						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button><button id="cancelBill">撤销</button></span></li>');
 					}
-				}				
+				}
+				//渲染后绑定点击事件
+				$('.bill-list').on('click','button',billControl);				
 			}			
 		//渲染设备列表		
 		}else if(el=='.device-list'){
@@ -96,6 +93,8 @@ function Render() {
 					item = items[i]
 					$(el).prepend('<li class="device-item"><span class="item-title" >'+item.deviceName+'</span><span class="item-status">'+item.deviceStatus+'</span><br><span class="item-time">设备编号:'+item.deviceId+'</span><span class="device-control" data="'+i+'"><button id="checkDevice" >查看</button></span></li>');			
 				}
+				//渲染后绑定点击事件
+				$('.device-list').on('click','button',deviceControl);
 			}		
 		} else if(el== '.contact') {
 			$('#page').html('<div class="contact"><div class="service"><i class="iconfont">&#xe6f0;</i><span>联系客服</span></div><div class="company"><i class="iconfont">&#xe6f0;</i><span>查看维修机构</span></div><div class="complaints"><i class="iconfont">&#xe6e5;</i><span>投诉与建议</span></div></div>');
@@ -165,7 +164,7 @@ var setItemDetail = function(listName,index){
 }
 
 //在我的订单列表的item中点击control按钮
-$('.bill-list').on('click','button',function(event){
+function billControl(event){
 	event.stopPropagation();
 	var billIndex = $(this).parent().attr('data');
 	switch($(this).attr('id'))
@@ -174,6 +173,7 @@ $('.bill-list').on('click','button',function(event){
 			setItemDetail('bills',billIndex);
 			$('.cover').fadeIn(100);
 			$('.bill-detail').fadeIn(100);
+			console.log($('.bill-list').html());	
 			$('#app').on('click',function(e){
 				e.stopPropagation();
 				//捕获以及处理在详细信息上的点击事件
@@ -246,15 +246,14 @@ $('.bill-list').on('click','button',function(event){
 						break;
 				}					
 			});
-			break;
-			
+			break;		
 	}
-});
+};
 
 
 
 //在我的设备列表的item中点击control按钮
-$('.device-list').on('click','button',function(event){
+function deviceControl(event){
 	event.stopPropagation();
 	var deviceIndex = $(this).parent().attr('data');
 	switch($(this).attr('id'))
@@ -279,13 +278,12 @@ $('.device-list').on('click','button',function(event){
 						$('.cover').fadeOut(100);
 						$('.device-detail').fadeOut(100);
 						takeBill(undefined,item.deviceName,item.deviceType);
-						$('#app').unbind();
 						break;
 				}	
 			});
 			break;			
 	}
-});
+};
 
 
 //获得bill数据的JSON对象数组函数
