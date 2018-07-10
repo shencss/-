@@ -173,7 +173,6 @@ textarea {
 	padding: 0;
 	margin: 0 auto;
 	z-index: 1;
-	display: none;	
 }
 
 .bill-item,.device-item {
@@ -368,7 +367,6 @@ textarea {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
-	display: none;
 	width: 100%;
 	text-align: center;
 	font-size: 16px;

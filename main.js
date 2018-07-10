@@ -11,7 +11,7 @@ var model = Model(),
 
 //初始化页面
 render.init('.bill-list');
-render.init('.device-list');
+
 
 
 //页面呼出函数
@@ -19,39 +19,28 @@ var PageFunc = function (type) {
 	if(type == 'bills'){		
 		$('.title').text('我的报单');
 		$('#nav-bills').css('color','#2196F3').siblings().css('color','#999');
-		$('#back-btn').css('visibility','hidden');
-		$('#scan-add-btn').css('visibility','visible');
-		$('#scan-add-btn').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');
-		$('form').fadeOut(100);
-		$('.back-btn').fadeOut(100);
-		$('.device-list').fadeOut(100);
-		$('.contact').fadeOut(100);
-		$('.bill-list').fadeIn(100);
+		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');
+		
+		render.init('.bill-list');
+
 		$('#take-bill-now').css('bottom','50px');
 
 	}else if(type == 'devices'){
 		$('.title').text('我的设备');
 		$('#nav-devices').css('color','#2196F3').siblings().css('color','#999');
-		$('#back-btn').css('visibility','hidden');
-		$('#scan-add-btn').css('visibility','visible');
-		$('#scan-add-btn').html('<i class="iconfont" id="add-btn">&#xe6df;</i>');
-		$('form').fadeOut(100);
-		$('.back-btn').fadeOut(100);
-		$('.bill-list').fadeOut(100);
-		$('.device-list').fadeIn(100);
-		$('.contact').fadeOut(100);
+		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="add-btn">&#xe6df;</i>');
+
+		render.init('.device-list');
+
 		$('#take-bill-now').css('bottom','50px');
 
 	}else if(type == 'contact') {
 		$('.title').text('联系我们');
 		$('#nav-contact').css('color','#2196F3').siblings().css('color','#999');
-		$('#back-btn').css('visibility','hidden');
 		$('#scan-add-btn').css('visibility','hidden');
-		$('form').fadeOut(100);
-		$('.back-btn').fadeOut(100);
-		$('.device-list').fadeOut(100);
-		$('.bill-list').fadeOut(100);
-		$('.contact').fadeIn(100);
+
+		render.init('.contact');
+
 		$('#take-bill-now').css('bottom','-50px');
 	}
 };
@@ -82,9 +71,11 @@ function Render() {
 	var items,item;
 	var init = function(el) {
 		//清空列表
+		
 		$(el).html('');	
 		//渲染报修单列表
 		if(el=='.bill-list'){
+			$('#page').html('<ul class="bill-list"></ul><div class="bill-detail"></div>');
 			if(localStorage.s_bills) {
 				items = getJSONArray('s_bills');
 				for(var i=0,len=items.length;i<len;i++){
@@ -97,15 +88,17 @@ function Render() {
 				}				
 			}			
 		//渲染设备列表		
-		}else if(el=='.device-list'){			
+		}else if(el=='.device-list'){
+			$('#page').html('<ul class="device-list"></ul> <div class="device-detail"></div>');			
 			if(localStorage['s_devices']) {	
 				items = getJSONArray('s_devices');					
 				for(var i=0; i<items.length; i++) {	
 					item = items[i]
 					$(el).prepend('<li class="device-item"><span class="item-title" >'+item.deviceName+'</span><span class="item-status">'+item.deviceStatus+'</span><br><span class="item-time">设备编号:'+item.deviceId+'</span><span class="device-control" data="'+i+'"><button id="checkDevice" >查看</button></span></li>');			
 				}
-			}
-			
+			}		
+		} else if(el== '.contact') {
+			$('#page').html('<div class="contact"><div class="service"><i class="iconfont">&#xe6f0;</i><span>联系客服</span></div><div class="company"><i class="iconfont">&#xe6f0;</i><span>查看维修机构</span></div><div class="complaints"><i class="iconfont">&#xe6e5;</i><span>投诉与建议</span></div></div>');
 		}
 	}
 	return {
@@ -195,10 +188,8 @@ $('.bill-list').on('click','button',function(event){
 					//点击再次报修
 					case 'billAgain':
 						var item = getJSONArray('s_bills')[billIndex];
-						$('.cover').fadeOut(100);
 						$('.bill-detail').fadeOut(100);
 						takeBill(undefined,item.deviceName,item.deviceType,item.description,item.organization,item.phone,item.address);
-						$('#app').unbind();
 						break;
 					//点击撤销报单
 					case 'cancelBill':
