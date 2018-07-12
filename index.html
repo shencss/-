@@ -85,7 +85,7 @@
 				<label for="description">故障描述:</label>
 				<textarea name="description" cols="23" rows="4" placeholder="请输入故障描述"></textarea><br>
 				<label for="Appointment">预约时间:</label>
-				<input type="date" name="Appointment" placeholder="请输入预约时间"><br>
+				<input type="datetime-local" name="Appointment" placeholder="请输入预约时间"><br>
 				<label for="organization">维修公司:</label>
 				<select name="organization">
 					<option value="A公司">A公司</option>
@@ -121,9 +121,17 @@
 			<form action="" class="complaints-form" target="frameFile">
 				<i class="iconfont" id="close-btn">&#xe6df;</i>
 				<span class="form-title">感谢您的投诉与建议</span><hr>
-				<label for="complaints">投诉建议:</label>
-				<textarea name="complaints" cols="23" rows="6"></textarea><br> 
+				<label for="complaints">投诉建议: </label>
+				<textarea name="complaints" cols="23" rows="6" placeholder="请输入投诉或建议"></textarea><br> 
 				<input type="submit" id="complaints-submit" value="提交">
+			</form>
+
+			<form action="" class="feedback-form" target="frameFile">
+				<i class="iconfont" id="close-btn">&#xe6df;</i>
+				<span class="form-title">感谢您的积极反馈</span><hr>
+				<label for="feedback">反馈: </label>
+				<textarea name="feedback" cols="23" rows="6" placeholder="请输入反馈"></textarea><br> 
+				<input type="submit" id="feedback-submit" value="提交">
 			</form>
 
 			<div class="cover" id="cover"></div>

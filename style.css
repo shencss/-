@@ -333,7 +333,7 @@ input[type=submit] {
 	border: .5px solid;
 	z-index: 6;
 }
-.device-detail  #device-histroy-table,.bill-detail  #repair-detail{
+#repair-history,#repair-detail{
 	width: 85%;
 	font-size: 12px;
 	background-color: #edf0f1;
@@ -343,7 +343,7 @@ input[type=submit] {
 	border: 1px solid #2196F3;
 	
 }
-.device-detail  #device-histroy-table th,.device-detail  #device-histroy-table td {
+#repair-history th, #repair-history td {
 	margin: 0;
 }
 
@@ -361,6 +361,9 @@ input[type=submit] {
 	color: #2196F3;
 }
 #checkWarranty {	
+	color: #a0cf67;
+}
+#feedback {
 	color: #a0cf67;
 }
 
