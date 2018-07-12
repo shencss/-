@@ -22,7 +22,7 @@ li {
 
 hr {
 	margin: 10px auto;
-	width: 80%;
+	width: 75%;
 	border: 0.5px solid #2196F3;
 }
 
@@ -43,6 +43,9 @@ hr {
 	font-size: 20px;
 	color: #FFF;
 	letter-spacing: 1px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 
 }
 
@@ -88,6 +91,8 @@ form {
 	max-height: 500px;
 	overflow: scroll;
 }
+
+
 .form-title {
 	color: #2196F3;
 }
@@ -122,7 +127,7 @@ textarea {
 	border-radius: 5px;
 	vertical-align: top;
 }
-#bill-submit,#device-submit {
+input[type=submit] {
 	margin: 10px auto;
 	background-color: #2196F3;
 	color: #FFF;
@@ -146,7 +151,7 @@ textarea {
 	right:0; 
 	bottom: -150px;
 	z-index: 4;	
-	transition: .4s ease;
+	transition: .5s ease;
 }
 .prompt button {
 	background-color: rgba(255, 255, 255, .8);
@@ -185,7 +190,7 @@ textarea {
 	vertical-align: middle;
 }
 
-.bill-item span,.device-item span,.histroy-item span{
+.bill-item span,.device-item span{
 	display: inline-block;
 	vertical-align: middle;
 	line-height: 15px;
@@ -325,8 +330,10 @@ textarea {
 	font-size: 15px;
 	line-height: 25px;
 	cursor: pointer;
+	border: .5px solid;
+	z-index: 6;
 }
-.device-detail  #device-histroy {
+.device-detail  #device-histroy-table,.bill-detail  #repair-detail{
 	width: 85%;
 	font-size: 12px;
 	background-color: #edf0f1;
@@ -336,7 +343,7 @@ textarea {
 	border: 1px solid #2196F3;
 	
 }
-.device-detail  #device-histroy th,.device-detail  #device-histroy td {
+.device-detail  #device-histroy-table th,.device-detail  #device-histroy-table td {
 	margin: 0;
 }
 
@@ -345,19 +352,15 @@ textarea {
 }
 
 #contactService {
-	border: .5px solid #2196F3;
-	color: #2196F3	;
-}
-#checkFinish {
-	border: .5px solid #a0cf67;
 	color: #a0cf67;
 }
-#billAgain,#billNow {
-	border: .5px solid #2196F3	;
+#checkFinish {
 	color: #2196F3;
 }
-#checkWarranty {
-	border: .5px solid #a0cf67;
+#billAgain,#billNow {
+	color: #2196F3;
+}
+#checkWarranty {	
 	color: #a0cf67;
 }
 
@@ -373,7 +376,7 @@ textarea {
 	text-align: center;
 }
 
-.service,.complaints,.company{
+#service,#complaints,#company{
 	margin: 20px auto;
 	background-color: #FFF;
 	width: 80%;
@@ -382,21 +385,22 @@ textarea {
 	border-radius: 10px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 	vertical-align: middle;
+	cursor: pointer;
 
 
 }
-.service {
+#service {
 	color: #a0cf67;
 }
-.complaints {
+#complaints {
 	color: #ff9966;
 }
 
-.company {
+#company {
 	color: #2196F3;
 }
 
-.service span,.complaints span,.company span {
+#service span,#complaints span,#company span {
 	display:inline-block;
 	margin: auto 10px;
 

@@ -9,10 +9,7 @@
 <body>
 	<div id="app">
 		<div class="header">
-			<span class="title" id="132132" >我的报单</span>
-			<span class="header-btn">
-				<i class="iconfont" id="back-btn">&#xe720;</i>
-			</span>
+			<span class="title">我的报单</span>
 			<span class="header-btn" id="scan-add-btn">
 				<i class="iconfont" id="scan-btn">&#xe722;</i>
 			</span>
@@ -39,31 +36,34 @@
 			
 			<div id="page">
 				<!--
+					-- 报单列表 --
 				<ul class="bill-list">
-					-- 报单item --
-				</ul>
-				<div class="bill-detail">
+					
 					-- 订单详细table --
-				</div>
-				
-				<ul class="device-list">
-					-- 设备item --
-				</ul> 
-				<div class="device-detail">
-					-- 设备详细table --
-				</div>
+					<div class="bill-detail"></div>
 
+				</ul>
+				
+				-- 设备列表 --
+				<ul class="device-list">
+					
+					-- 设备详细table --
+					<div class="device-detail"></div>
+
+				</ul> 
+				
+				-- 联系我们
 				<div class="contact">
 					<div class="service"><i class="iconfont">&#xe6f0;</i><span>联系客服</span></div>
 					<div class="company"><i class="iconfont">&#xe6f0;</i><span>查看维修机构</span></div>
 					<div class="complaints"><i class="iconfont">&#xe6e5;</i><span>投诉与建议</span></div>
+
+					
 				</div>
 				-->
 			</div>
 
-	
 			<button id="take-bill-now">报修</button>
-
 
 			<!-- 这个iframe是为了表单提交时不刷新页面 -->
 			<iframe name='frameFile' style='display: none;'></iframe>
@@ -116,6 +116,14 @@
 					<option value="其他">其他</option>
 				</select><br>		
 				<input type="submit" id="device-submit" value="提交">
+			</form>
+
+			<form action="" class="complaints-form" target="frameFile">
+				<i class="iconfont" id="close-btn">&#xe6df;</i>
+				<span class="form-title">感谢您的投诉与建议</span><hr>
+				<label for="complaints">投诉建议:</label>
+				<textarea name="complaints" cols="23" rows="6"></textarea><br> 
+				<input type="submit" id="complaints-submit" value="提交">
 			</form>
 
 			<div class="cover" id="cover"></div>
