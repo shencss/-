@@ -4,8 +4,8 @@ var model = Model(),
 	render = Render();
 
 //数据初始化
-//localStorage.s_devices = '{"deviceId":"85FG30UI","deviceStatus":"已维修","deviceName":"联想笔记本","deviceType":"电脑","history":[{"billId":"EBE7344E","time":"2018年7月5日10:58","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}';
-//localStorage.s_bills = '{"billId":"EBE7344E","billTime":"2018年7月5日10:51","billStatus":"已完成","deviceName":"联想笔记本","deviceType":"电脑","description":"无法正常开机","Appointment":"2018-07-07","organization":"B公司","phone":"1300000000","address":"华南理工大学B8学院楼101","report":{"finishTime":"2018年7月12日14:00","organization":"B公司","reqairer":"No.001","result":"已完成","detail":{"deviceId":"85FG30UI","description":"主板局部短路，导致无法正常开机","money":"78元"}}}$${"billId":"F6C7F2FA","billTime":"2018年7月5日10:53","billStatus":"受理中","deviceName":"惠普显示屏","deviceType":"配件","description":"颜色无法正常显示","Appointment":"2018-07-06","organization":"A公司","phone":"10010","address":"华南理工大学B8学院楼102","report":{}}$${"billId":"266852B1","billTime":"2018年7月5日10:54","billStatus":"受理中","deviceName":"戴尔笔记本","deviceType":"电脑","description":"音响失灵，无法正常播音","Appointment":"2018-07-08","organization":"C公司","phone":"10010","address":"华南理工大学B8学院楼201","report":{}}'
+localStorage.s_devices = '[{"deviceId":"85FG30UI","deviceName":"联想笔记本","deviceType":"电脑","guaranteed":[{"name":"内存条","startTime":"2018年1月1日","endTime":"2018年7月7日","status":1},{"name":"CPU","startTime":"2018.3.1","endTime":"2018年12月7日","status":0}],"history":[{"billId":"EBE7344E","time":"2018年7月5日10:58","organization":"A公司","money":"78.00元","description":"无法正常开机"},{"billId":"EBE7344E","time":"2018年7月5日10:58","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}]';
+localStorage.s_bills = '[{"billId":"EBE7344E","billTime":"2018年7月5日10:51","billStatus":"已完成","deviceName":"联想笔记本","deviceType":"电脑","description":"无法正常开机","Appointment":"2018-07-07","organization":"B公司","phone":"1300000000","address":"华南理工大学B8学院楼101","report":{"finishTime":"2018年7月12日14:00","organization":"B公司","reqairer":"No.001","result":"已完成","detail":{"deviceId":"85FG30UI","description":"主板局部短路，导致无法正常开机","money":"78元"}}},{"billId":"F6C7F2FA","billTime":"2018年7月5日10:53","billStatus":"受理中","deviceName":"惠普显示屏","deviceType":"配件","description":"颜色无法正常显示","Appointment":"2018-07-06","organization":"A公司","phone":"10010","address":"华南理工大学B8学院楼102","report":{}},{"billId":"266852B1","billTime":"2018年7月5日10:54","billStatus":"受理中","deviceName":"戴尔笔记本","deviceType":"电脑","description":"音响失灵，无法正常播音","Appointment":"2018-07-08","organization":"C公司","phone":"10010","address":"华南理工大学B8学院楼201","report":{}}]'
 //console.log(localStorage.s_devices);
 //console.log(localStorage.s_bills);
 
@@ -89,7 +89,7 @@ function Render() {
 				items = getJSONArray('s_devices');					
 				for(var i=0; i<items.length; i++) {	
 					item = items[i]
-					$(el).prepend('<li class="device-item"><span class="item-title" >'+item.deviceName+'</span><span class="item-status">'+item.deviceStatus+'</span><br><span class="item-time">设备编号:'+item.deviceId+'</span><span class="device-control" data="'+i+'"><button id="checkDevice" >查看</button></span></li>');			
+					$(el).prepend('<li class="device-item"><span class="item-title" >'+item.deviceName+'</span><span class="item-status">'+' '+'</span><br><span class="item-time">设备编号:'+item.deviceId+'</span><span class="device-control" data="'+i+'"><button id="checkDevice" >查看</button></span></li>');			
 				}
 				//渲染后绑定点击事件(避免新渲染的item没有监听事件)
 				$('.device-list').on('click','button',deviceControl);
@@ -161,7 +161,11 @@ var setItemDetail = function(listName,index){
 			detailItem = getJSONArray('s_devices')[index];
 		}
 		if(detailItem.history !== undefined && detailItem.history.length != 0){
-			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">设备详细信息</span><hr><div class="table-container"><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>∨</td></tr></table><div><table id="repair-history"><tr><th>报单编号</th><td>'+detailItem.history[0].billId+'</td></tr><tr><th>维修时间</th><td>'+detailItem.history[0].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.history[0].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.history[0].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.history[0].money+'</td></tr></table></div></div><hr><div class="detail-btns"><button id="checkWarranty">保修状况</button><button id="billNow">立即报修</button></div>');
+			var history = '';
+			for (var i = 0, len = detailItem.history.length; i < len; i++ ) {
+				history += '<table id="repair-history"><tr><th>报单编号</th><td>'+detailItem.history[i].billId+'</td></tr><tr><th>维修时间</th><td>'+detailItem.history[i].time+'</td></tr><tr><th>维修机构</th><td>'+detailItem.history[i].organization+'</td></tr><tr><th>故障描述</th><td>'+detailItem.history[i].description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.history[i].money+'</td></tr></table>'
+			}
+			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">设备详细信息</span><hr><div class="table-container"><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>∨</td></tr></table><div>'+history+'</div></div><hr><div class="detail-btns"><button id="checkWarranty">保修状况</button><button id="billNow">立即报修</button></div>');
 		}else {
 			$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">设备详细信息</span><hr><div class="table-container"><table><tr><th>设备编号</th><td>'+detailItem.deviceId+'</td></tr><tr><th>设备名称</th><td>'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td>'+detailItem.deviceType+'</td></tr><tr><th>维修历史</th><td>无</td></tr></table></div><hr><div class="detail-btns"><button id="checkWarranty">保修状况</button><button id="billNow">立即报修</button></div>');
 		}
@@ -305,6 +309,12 @@ function deviceControl(event){
 						takeBill(undefined,item.deviceName,item.deviceType);
 						break;
 					case 'checkWarranty':
+						var detailItem = getJSONArray('s_devices')[deviceIndex];
+						var guaranteed = '';
+						for (var i = 0, len = detailItem.guaranteed.length; i < len; i++ ) {
+							guaranteed += '<table id="device-guaranteed"><tr><th>零件名称</th><td>'+detailItem.guaranteed[i].name+'</td></tr><tr><th>开始时间</th><td>'+detailItem.guaranteed[i].startTime+'</td></tr><tr><th>结束时间</th><td>'+detailItem.guaranteed[i].endTime+'</td></tr><tr><th>保修状态</th><td>'+(detailItem.guaranteed[i].status === 0 ? '保修中' : '已过保')+'</td></tr></table>'
+						}
+						$('.device-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">零件保修信息</span><hr><div class="table-container">'+guaranteed+'</div><hr></div>');
 						break;
 				}	
 			});
@@ -350,9 +360,7 @@ function contactControl(event) {
 
 //获得bill数据的JSON对象数组函数
 function getJSONArray(type) {
-	var items = localStorage[type].split('$$').map(function(item) {
-		return JSON.parse(item);
-	});
+	var items = JSON.parse(localStorage[type]);
 	return items;
 }
 //生成唯一单号

@@ -333,7 +333,7 @@ input[type=submit] {
 	border: .5px solid;
 	z-index: 6;
 }
-#repair-history,#repair-detail{
+#repair-history,#repair-detail,#device-guaranteed{
 	width: 85%;
 	font-size: 12px;
 	background-color: #edf0f1;
