@@ -149,10 +149,11 @@ var setItemDetail = function(listName,index){
 		if(localStorage.s_bills) {
 			detailItem = getJSONArray('s_bills')[index];
 		}
-		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'</td><tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table></div><hr><div class="detail-btns"><button id="billAgain">再次报修</button><button id="contactService">联系客服</button></div>');
+		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'</td><tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table></div><hr><div class="detail-btns"><button id="contactService">联系客服</button></div>');
 		if(detailItem.billStatus != '已完成'){
 			$('.detail-btns').append('<button id="cancelBill">撤销订单</button>');
 		}else {
+			$('.detail-btns').prepend('<button id="billAgain">再次报修</button>')
 			$('.detail-btns').append('<button id="checkFinish">完工报告</button>');
 		}
 	}else if(listName == 'devices'){
@@ -189,13 +190,6 @@ function billControl(event){
 					case 'close-btn':
 						$('.cover').unbind().fadeOut(100);
 						$('.bill-detail').unbind().fadeOut(100);
-						break;
-					//点击再次报修
-					case 'billAgain':
-						$('.cover').unbind();
-						$('.bill-detail').unbind().fadeOut(100);
-						var item = getJSONArray('s_bills')[billIndex];
-						takeBill(undefined,item.deviceName,item.deviceType,item.description,item.organization,item.phone,item.address);
 						break;
 					//点击撤销报单
 					case 'cancelBill':
