@@ -1,18 +1,18 @@
+//报单状态传0 维修明细同级 类设备类型传值 不要设备状态
+//01电脑 02电视 03冰箱 04空调 05洗衣机 06配件 07其他
 
 //初始化存储对象和渲染对象
 var model = Model(),
 	render = Render();
 
 //数据初始化
-localStorage.s_devices = '[{"deviceId":"85FG30UI","deviceName":"联想笔记本","deviceType":"电脑","guaranteed":[{"name":"内存条","startTime":"2018年1月1日","endTime":"2018年7月7日","status":1},{"name":"CPU","startTime":"2018.3.1","endTime":"2018年12月7日","status":0}],"history":[{"billId":"EBE7344E","time":"2018年7月5日10:58","organization":"A公司","money":"78.00元","description":"无法正常开机"},{"billId":"EBE7344E","time":"2018年7月5日10:58","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}]';
-localStorage.s_bills = '[{"billId":"EBE7344E","billTime":"2018年7月5日10:51","billStatus":"已完成","deviceName":"联想笔记本","deviceType":"电脑","description":"无法正常开机","Appointment":"2018-07-07","organization":"B公司","phone":"1300000000","address":"华南理工大学B8学院楼101","report":{"finishTime":"2018年7月12日14:00","organization":"B公司","reqairer":"No.001","result":"已完成","detail":{"deviceId":"85FG30UI","description":"主板局部短路，导致无法正常开机","money":"78元"}}},{"billId":"F6C7F2FA","billTime":"2018年7月5日10:53","billStatus":"受理中","deviceName":"惠普显示屏","deviceType":"配件","description":"颜色无法正常显示","Appointment":"2018-07-06","organization":"A公司","phone":"10010","address":"华南理工大学B8学院楼102","report":{}},{"billId":"266852B1","billTime":"2018年7月5日10:54","billStatus":"受理中","deviceName":"戴尔笔记本","deviceType":"电脑","description":"音响失灵，无法正常播音","Appointment":"2018-07-08","organization":"C公司","phone":"10010","address":"华南理工大学B8学院楼201","report":{}}]'
+//localStorage.s_devices = '[{"deviceId":"85FG30UI","deviceName":"联想笔记本","deviceType":"电脑","guaranteed":[{"name":"内存条","startTime":"2018-01-01","endTime":"2018-07-07","status":1},{"name":"CPU","startTime":"2018-03-01","endTime":"2018-12-07","status":0}],"history":[{"billId":"EBE7344E","time":"2018-07-05 10:58:00","organization":"A公司","money":"78.00元","description":"无法正常开机"},{"billId":"EBE7344E","time":"2018-07-05 10:58:00","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}]';
+//localStorage.s_bills = '[{"billId":"EBE7344E","billTime":"2018-07-05 10:51:00","billStatus":"已完成","deviceName":"联想笔记本","deviceType":"电脑","description":"无法正常开机","appointment":"2018-07-07 14:00:00","organization":"B公司","phone":"1300000000","address":"华南理工大学B8学院楼101","report":{"finishTime":"2018-070-12 14:00:00","organization":"B公司","repairer":"No.001","result":"已完成","detail":{"deviceId":"85FG30UI","description":"主板局部短路，导致无法正常开机","money":"78元"}}},{"billId":"F6C7F2FA","billTime":"2018-07-05 10:53:00","billStatus":"受理中","deviceName":"惠普显示屏","deviceType":"配件","description":"颜色无法正常显示","appointment":"2018-07-06 15:00:00","organization":"A公司","phone":"10010","address":"华南理工大学B8学院楼102","report":{}},{"billId":"266852B1","billTime":"2018-07-05 10:54:00","billStatus":"受理中","deviceName":"戴尔笔记本","deviceType":"电脑","description":"音响失灵，无法正常播音","appointment":"2018-07-08 12:30:00","organization":"C公司","phone":"10010","address":"华南理工大学B8学院楼201","report":{}}]'
 //console.log(localStorage.s_devices);
 //console.log(localStorage.s_bills);
 
 //初始化页面
 render.init('.bill-list');
-
-
 
 //页面呼出函数
 var PageFunc = function (type) {
@@ -74,9 +74,9 @@ function Render() {
 				for(var i=0,len=items.length;i<len;i++){
 					item = items[i];
 					if(item.billStatus === '已完成') {
-						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button></span></li>');
+						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5,11)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button></span></li>');
 					}else {
-						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button><button id="cancelBill">撤销</button></span></li>');
+						$(el).prepend('<li class="bill-item"><span class="item-title" >'+item.billId+'</span><span class="item-status">'+item.billStatus+'</span><br><span class="item-time">'+item.deviceName+' '+item.billTime.substr(5,11)+'</span><span class="bill-control" data="'+i+'"><button id="checkBill" >查看</button><button id="cancelBill">撤销</button></span></li>');
 					}
 				}
 				//渲染后绑定点击事件(避免新渲染的item没有监听事件)
@@ -112,9 +112,9 @@ function Model() {
 	//添加报修单
 	var addItem = function(type,data) {
 		if(localStorage[type]){
-			var arr = [localStorage[type]];
+			var arr = JSON.parse(localStorage[type]);
 			arr.push(data);
-			localStorage[type] = arr.join('$$');	
+			localStorage[type] = JSON.stringify(arr);	
 		}
 		else{
 			localStorage[type] = [data];
@@ -127,9 +127,9 @@ function Model() {
 	};
 	//删除
 	var clearItem = function(type, index) {
-		var arr = localStorage[type].split('$$');
+		var arr = JSON.parse(localStorage[type]);
 		arr.splice(index,1);
-		localStorage[type] = arr.join('$$');
+		localStorage[type] = JSON.stringify(arr);
 		if(type == 's_bills') {	
 			render.init('.bill-list');
 		}else if(type == 's_devices') {
@@ -149,7 +149,7 @@ var setItemDetail = function(listName,index){
 		if(localStorage.s_bills) {
 			detailItem = getJSONArray('s_bills')[index];
 		}
-		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'</td><tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="Appointment">'+detailItem.Appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table></div><hr><div class="detail-btns"><button id="contactService">联系客服</button></div>');
+		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'</td><tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="appointment">'+detailItem.appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table></div><hr><div class="detail-btns"><button id="contactService">联系客服</button></div>');
 		if(detailItem.billStatus != '已完成'){
 			$('.detail-btns').append('<button id="cancelBill">撤销订单</button>');
 		}else {
@@ -187,7 +187,6 @@ function billControl(event){
 			});
 			$('.bill-detail').fadeIn(100).on('click',function(e){
 				e.stopPropagation();
-				console.log($(e.target).attr('id'));
 				//捕获以及处理在详细信息上的点击事件
 				switch($(e.target).attr('id'))
 				{		
@@ -195,6 +194,13 @@ function billControl(event){
 						$('.cover').unbind().fadeOut(100);
 						$('.bill-detail').unbind().fadeOut(100);
 						break;
+					//点击再次报修
+					case 'billAgain':
+						$('.cover').unbind();
+						$('.bill-detail').unbind().fadeOut(100);
+						var item = getJSONArray('s_bills')[billIndex];
+						takeBill(e,item.deviceName,item.deviceType,item.description,item.organization,item.phone,item.address);
+					break;
 					//点击撤销报单
 					case 'cancelBill':
 						$('.cover').unbind();
@@ -222,7 +228,7 @@ function billControl(event){
 					//点击查看完工单
 					case 'checkFinish':
 						var detailItem = getJSONArray('s_bills')[billIndex];
-						$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">完工报告信息</span><hr><div class="table-container"><table><tr><th>完工时间</th><td id="repairTime">'+detailItem.report.finishTime+'</td></tr><tr><th>维修机构</th><td id="organization">'+detailItem.report.organization+'</td></tr><tr><th>维修人员</th><td id="repairer">'+detailItem.report.reqairer+'</td></tr><tr><th>维修结果</th><td id="result">'+detailItem.report.result+'</td></tr><tr><th>维修明细</th><td id="">∨</td><tr></table><div><table id="repair-detail"><tr><th>报单编号</th><td>'+detailItem.billId+'</td></tr><tr><th>设备编号</th><td>'+detailItem.report.detail.deviceId+'</td></tr><tr><th>故障描述</th><td>'+detailItem.report.detail.description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.report.detail.money+'</td></tr></table></div></div><hr><div class="detail-btns"><button id="feedback">我要反馈</button></div>');
+						$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">完工报告信息</span><hr><div class="table-container"><table><tr><th>完工时间</th><td id="repairTime">'+detailItem.report.finishTime+'</td></tr><tr><th>维修机构</th><td id="organization">'+detailItem.report.organization+'</td></tr><tr><th>维修人员</th><td id="repairer">'+detailItem.report.repairer+'</td></tr><tr><th>维修结果</th><td id="result">'+detailItem.report.result+'</td></tr><tr><th>维修明细</th><td id="">∨</td><tr></table><div><table id="repair-detail"><tr><th>报单编号</th><td>'+detailItem.billId+'</td></tr><tr><th>设备编号</th><td>'+detailItem.report.detail.deviceId+'</td></tr><tr><th>故障描述</th><td>'+detailItem.report.detail.description+'</td></tr><tr><th>维修费用</th><td>'+detailItem.report.detail.money+'</td></tr></table></div></div><hr><div class="detail-btns"><button id="feedback">我要反馈</button></div>');
 						$('.bill-detail').on('click',function(e) {
 							switch($(e.target).attr('id'))
 							{
@@ -367,27 +373,27 @@ function getJSONArray(type) {
 function getID() {
    return (((1+Math.random())*0x10000)|0).toString(16).substring(1).toUpperCase()+(((1+Math.random())*0x10000)|0).toString(16).substring(1).toUpperCase();
 }
-//生成当前时间
-function getTime() {
-	var date = new Date();
-	var year = date.getFullYear();
-	var month = (date.getMonth()+1);
-	var day = date.getDate();
-	var hour = date.getHours();
-	var minute = date.getMinutes();
-	if(hour < 10){
-		hour = '0'+hour;
-	}
-	return year+'年'+month+'月'+day+'日'+hour+':'+minute;
+
+//生成格式化时间
+function formatTime(newDate) {
+	var year = newDate.getFullYear();
+	var month = (newDate.getMonth() + 1) < 10 ? "0" + (newDate.getMonth() + 1) : (newDate.getMonth() + 1);
+	var day = newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+	var hours = newDate.getHours() < 10 ? "0" + newDate.getHours() : newDate.getHours();
+	var minuts = newDate.getMinutes() < 10 ? "0" + newDate.getMinutes() : newDate.getMinutes();
+	var seconds = newDate.getSeconds() < 10 ? "0" + newDate.getSeconds() : newDate.getSeconds();
+	return year+"-"+month+"-"+day+" "+hours+":"+minuts+":"+seconds;
 }
 //报修函数
 function takeBill(e,name,type,description,organization,phone,address) {
-	$('#bill-form input[name="deviceName"]').val(name);
-	$('#bill-form select[name="deviceType"]').val(type);
-	$('#bill-form textarea[name="description"]').val(description);
-	$('#bill-form select[name="organization"]').val(organization);
-	$('#bill-form input[name="phone"]').val(phone);
-	$('#bill-form input[name="address"]').val(address);
+	if (name) {
+		$('#bill-form input[name="deviceName"]').val(name);
+		$('#bill-form select[name="deviceType"]').val(type);
+		$('#bill-form textarea[name="description"]').val(description);
+		$('#bill-form select[name="organization"]').val(organization);
+		$('#bill-form input[name="phone"]').val(phone);
+		$('#bill-form input[name="address"]').val(address);
+	}
 	$('.cover').fadeIn(100).click(function () {
 		$('.cover').unbind().fadeOut(100);
 		$('#bill-form').unbind().fadeOut(100);
@@ -405,14 +411,18 @@ function takeBill(e,name,type,description,organization,phone,address) {
 			//点击提交报修单
 			case 'bill-submit':
 				var billData = {};
-			    var t = $('#bill-form').serializeArray();
+				var t = $('#bill-form').serializeArray();
 			    billData.billId = getID();
-			    billData.billTime = getTime();
+				billData.billTime = formatTime(new Date());
+				console.log(billData.billTime)
 			    billData.billStatus = '受理中';
 			    $.each(t, function () {
 			        billData[this.name] = this.value;
-			    });
-			    model.addItem('s_bills',JSON.stringify(billData));
+				});
+				//设置预约时间的格式
+				billData.appointment = t[3].value.replace(/T/, ' ') + ':00';
+				console.log(billData.appointment)
+			    model.addItem('s_bills',billData);
 			    $('.cover').unbind().fadeOut(100);
 				$('#bill-form').unbind().fadeOut(100);
 				PageFunc('bills');

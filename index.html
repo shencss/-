@@ -72,9 +72,9 @@
 				<i class="iconfont" id="close-btn">&#xe6df;</i>
 				<span class="form-title">请填写报单信息</span><hr>
 				<label for="deviceName">设备名称:</label>
-				<input type="text" name="deviceName" placeholder="请输入设备名称"><br>
+				<input type="text" name="deviceName" placeholder="请输入设备名称" required="required"><br>
 				<label for="deviceType">设备类型:</label>
-				<select name="deviceType">
+				<select name="deviceType" required="required">
 					<option value="电脑">电脑</option>
 					<option value="电视">电视</option>
 					<option value="冰箱">冰箱</option>
@@ -83,19 +83,19 @@
 					<option value="其他">其他</option>
 				</select><br>
 				<label for="description">故障描述:</label>
-				<textarea name="description" cols="23" rows="4" placeholder="请输入故障描述"></textarea><br>
-				<label for="Appointment">预约时间:</label>
-				<input type="datetime-local" name="Appointment" placeholder="请输入预约时间"><br>
+				<textarea name="description" cols="23" rows="4" placeholder="请输入故障描述" required="required"></textarea><br>
+				<label for="appointment">预约时间:</label>
+				<input type="datetime-local" name="appointment" placeholder="请输入预约时间" required="required"><br>
 				<label for="organization">维修公司:</label>
-				<select name="organization">
+				<select name="organization" required="required">
 					<option value="A公司">A公司</option>
 					<option value="B公司">B公司</option>
 					<option value="C公司">C公司</option>
 				</select><br>
 				<label for="phone">联系电话:</label>
-				<input type="phone" name="phone" placeholder="请输入联系电话"><br>
+				<input type="phone" name="phone" placeholder="请输入联系电话" required="required"><br>
 				<label for="address">维修地址:</label>
-				<input type="address" name="address" placeholder="请输入维修地址"><br>
+				<input type="address" name="address" placeholder="请输入维修地址" required="required"><br>
 				<label for="remark">其他备注:</label>
 				<textarea name="remark" cols="23" rows="4" placeholder="请输入备注信息"></textarea><br>
 				<input type="submit" id="bill-submit" value="提交">
@@ -105,9 +105,9 @@
 				<i class="iconfont" id="close-btn">&#xe6df;</i>
 				<span class="form-title">请填写设备信息</span><hr>
 				<label for="deviceName">设备名称:</label>
-				<input type="text" name="deviceName" placeholder="请输入设备名称"><br>
+				<input type="text" name="deviceName" placeholder="请输入设备名称" required="required"><br>
 				<label for="deviceType">设备类型:</label>
-				<select name="deviceType">
+				<select name="deviceType" required="required">
 					<option value="电脑">电脑</option>
 					<option value="电视">电视</option>
 					<option value="冰箱">冰箱</option>
@@ -123,14 +123,14 @@
 				<span class="form-title">感谢您的投诉与建议</span><hr>
 				<label for="complaints">投诉建议: </label>
 				<textarea name="complaints" cols="23" rows="6" placeholder="请输入投诉或建议"></textarea><br> 
-				<input type="submit" id="complaints-submit" value="提交">
+				<input type="submit" id="complaints-submit" value="提交" required="required">
 			</form>
 
 			<form action="" class="feedback-form" target="frameFile">
 				<i class="iconfont" id="close-btn">&#xe6df;</i>
 				<span class="form-title">感谢您的积极反馈</span><hr>
 				<label for="feedback">反馈: </label>
-				<textarea name="feedback" cols="23" rows="6" placeholder="请输入反馈"></textarea><br> 
+				<textarea name="feedback" cols="23" rows="6" placeholder="请输入反馈" required="required"></textarea><br> 
 				<input type="submit" id="feedback-submit" value="提交">
 			</form>
 
