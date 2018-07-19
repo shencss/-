@@ -6,8 +6,8 @@ var model = Model(),
 	render = Render();
 
 //数据初始化
-//localStorage.s_devices = '[{"deviceId":"85FG30UI","deviceName":"联想笔记本","deviceType":"电脑","guaranteed":[{"name":"内存条","startTime":"2018-01-01","endTime":"2018-07-07","status":1},{"name":"CPU","startTime":"2018-03-01","endTime":"2018-12-07","status":0}],"history":[{"billId":"EBE7344E","time":"2018-07-05 10:58:00","organization":"A公司","money":"78.00元","description":"无法正常开机"},{"billId":"EBE7344E","time":"2018-07-05 10:58:00","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}]';
-//localStorage.s_bills = '[{"billId":"EBE7344E","billTime":"2018-07-05 10:51:00","billStatus":"已完成","deviceName":"联想笔记本","deviceType":"电脑","description":"无法正常开机","appointment":"2018-07-07 14:00:00","organization":"B公司","phone":"1300000000","address":"华南理工大学B8学院楼101","report":{"finishTime":"2018-070-12 14:00:00","organization":"B公司","repairer":"No.001","result":"已完成","detail":{"deviceId":"85FG30UI","description":"主板局部短路，导致无法正常开机","money":"78元"}}},{"billId":"F6C7F2FA","billTime":"2018-07-05 10:53:00","billStatus":"受理中","deviceName":"惠普显示屏","deviceType":"配件","description":"颜色无法正常显示","appointment":"2018-07-06 15:00:00","organization":"A公司","phone":"10010","address":"华南理工大学B8学院楼102","report":{}},{"billId":"266852B1","billTime":"2018-07-05 10:54:00","billStatus":"受理中","deviceName":"戴尔笔记本","deviceType":"电脑","description":"音响失灵，无法正常播音","appointment":"2018-07-08 12:30:00","organization":"C公司","phone":"10010","address":"华南理工大学B8学院楼201","report":{}}]'
+localStorage.s_devices = '[{"deviceId":"85FG30UI","deviceName":"联想笔记本","deviceType":"电脑","guaranteed":[{"name":"内存条","startTime":"2018-01-01","endTime":"2018-07-07","status":1},{"name":"CPU","startTime":"2018-03-01","endTime":"2018-12-07","status":0}],"history":[{"billId":"EBE7344E","time":"2018-07-05 10:58:00","organization":"A公司","money":"78.00元","description":"无法正常开机"},{"billId":"EBE7344E","time":"2018-07-05 10:58:00","organization":"A公司","money":"78.00元","description":"无法正常开机"}]}]';
+localStorage.s_bills = '[{"billId":"EBE7344E","billTime":"2018年7月5日10:51","billStatus":"已完成","deviceName":"联想笔记本","deviceType":"电脑","description":"无法正常开机","appointment":"2018年7月7日17:00","organization":"B公司","phone":"1300000000","address":"华南理工大学B8学院楼101","remark":"曾经维修过一次","report":{"finishTime":"2018年7月12日14:00","organization":"B公司","reqairer":"No.001","result":"已完成","detail":{"deviceId":"85FG30UI","description":"主板局部短路，导致无法正常开机","money":"78元"}}},{"billId":"F6C7F2FA","billTime":"2018年7月5日10:53","billStatus":"受理中","deviceName":"惠普显示屏","deviceType":"配件","description":"颜色无法正常显示","appointment":"2018年7月6日13:00","organization":"A公司","phone":"10010","address":"华南理工大学B8学院楼102","remark":"请尽快上门维修","report":{}},{"billId":"266852B1","billTime":"2018年7月5日10:54","billStatus":"受理中","deviceName":"戴尔笔记本","deviceType":"电脑","description":"音响失灵，无法正常播音","appointment":"2018年7月8日14:30","organization":"C公司","phone":"10010","address":"华南理工大学B8学院楼201","remark":"无","report":{}}]'
 //console.log(localStorage.s_devices);
 //console.log(localStorage.s_bills);
 
@@ -149,7 +149,7 @@ var setItemDetail = function(listName,index){
 		if(localStorage.s_bills) {
 			detailItem = getJSONArray('s_bills')[index];
 		}
-		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'</td><tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="appointment">'+detailItem.appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr></table></div><hr><div class="detail-btns"><button id="contactService">联系客服</button></div>');
+		$('.bill-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="billId">'+detailItem.billId+'</td></tr><tr><th>订单时间</th><td id="billTime">'+detailItem.billTime+'</td></tr><tr><th>订单状态</th><td id="billStatus">'+detailItem.billStatus+'</td></tr><tr><th>设备名称</th><td id="deviceName">'+detailItem.deviceName+'</td></tr><tr><th>设备类型</th><td id="deviceType">'+detailItem.deviceType+'</td><tr><th>维修机构</th><td id="organization">'+detailItem.organization+'</td></tr><tr><th>预约时间</th><td id="appointment">'+detailItem.appointment+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr><tr><th id="remark">备注信息</th><td>'+detailItem.remark+'</td></tr></table></div><hr><div class="detail-btns"><button id="contactService">联系客服</button></div>');
 		if(detailItem.billStatus != '已完成'){
 			$('.detail-btns').append('<button id="cancelBill">撤销订单</button>');
 		}else {
@@ -393,6 +393,13 @@ function takeBill(e,name,type,description,organization,phone,address) {
 		$('#bill-form select[name="organization"]').val(organization);
 		$('#bill-form input[name="phone"]').val(phone);
 		$('#bill-form input[name="address"]').val(address);
+	} else {
+		$('#bill-form input[name="deviceName"]').val('');
+		$('#bill-form select[name="deviceType"]').val('');
+		$('#bill-form textarea[name="description"]').val('');
+		$('#bill-form select[name="organization"]').val('');
+		$('#bill-form input[name="phone"]').val('');
+		$('#bill-form input[name="address"]').val('');
 	}
 	$('.cover').fadeIn(100).click(function () {
 		$('.cover').unbind().fadeOut(100);
@@ -414,14 +421,11 @@ function takeBill(e,name,type,description,organization,phone,address) {
 				var t = $('#bill-form').serializeArray();
 			    billData.billId = getID();
 				billData.billTime = formatTime(new Date());
-				console.log(billData.billTime)
 			    billData.billStatus = '受理中';
 			    $.each(t, function () {
 			        billData[this.name] = this.value;
 				});
 				//设置预约时间的格式
-				billData.appointment = t[3].value.replace(/T/, ' ') + ':00';
-				console.log(billData.appointment)
 			    model.addItem('s_bills',billData);
 			    $('.cover').unbind().fadeOut(100);
 				$('#bill-form').unbind().fadeOut(100);
