@@ -173,14 +173,14 @@ input[type=submit] {
 #no {
 	color: #2196F3;
 }
-.bill-list,.device-list{
+.repair-list,.equipment-list{
 	
 	padding: 0;
 	margin: 0 auto;
 	z-index: 1;
 }
 
-.bill-item,.device-item {
+.repair-item,.equipment-item {
 
 	height: 60px;
 	padding: 8px 8px;
@@ -190,7 +190,7 @@ input[type=submit] {
 	vertical-align: middle;
 }
 
-.bill-item span,.device-item span{
+.repair-item span,.equipment-item span{
 	display: inline-block;
 	vertical-align: middle;
 	line-height: 15px;
@@ -202,19 +202,19 @@ input[type=submit] {
 	font-size: 15px;
 }
 
-.item-title,.device-title{
+.item-title,.equipment-title{
 	display: block;
 	
 	font-size: 18px;
 }
-.bill-control,.device-control {
+.repair-control,.equipment-control {
 	float: right;
 	vertical-align: middle;
 	position: relative;
 	top: 2.5px;
 }
 
-.bill-item button,.device-item button{
+.repair-item button,.equipment-item button{
 	border-radius: 3px;
 	margin:0 5px;
 	height: 25px;
@@ -226,11 +226,11 @@ input[type=submit] {
 	line-height: 23px;
 	cursor: pointer;
 }
-#checkBill,#checkDevice {
+#checkrepair,#checkequipment {
 	border: .5px solid #a0cf67;
 	color: #a0cf67;
 }
-#cancelBill {
+#cancelrepair {
 	border: .5px solid #ff9966;
 	color: #ff9966;
 }
@@ -245,7 +245,7 @@ input[type=submit] {
 	float: left;
 }
 
-#take-bill-now {
+#take-repair-now {
 	position: fixed;
 	bottom: 50px;
 	left: 50%;
@@ -263,7 +263,7 @@ input[type=submit] {
 	z-index: 2;
 	transition: bottom .5s ease-in-out;
 }
-.bill-detail,.device-detail {
+.repair-detail,.equipment-detail {
 	position: fixed;
     left: 50%;
     top: 50%;
@@ -294,19 +294,19 @@ input[type=submit] {
 	max-height: 350px;
 	overflow-y: scroll;
 }
-.bill-detail table,.device-detail table{
+.repair-detail table,.equipment-detail table{
 	width: 95%;
 	padding: 5px;
 	margin: 0 auto;
 	font-size: 15px;
 }
-.bill-detail th,.device-detail th {
+.repair-detail th,.equipment-detail th {
 	margin: 3.5px;
 	float: left;
 	font-weight: 200;
 	color: #888;
 }
- .bill-detail td,.device-detail td {
+ .repair-detail td,.equipment-detail td {
 	color: #000;
 	font-weight: 400;
 	margin: 3.5px;
@@ -333,7 +333,7 @@ input[type=submit] {
 	border: .5px solid;
 	z-index: 6;
 }
-#repair-history,#repair-detail,#device-guaranteed{
+#repair-history,#repair-detail,#equipment-guaranteed{
 	width: 85%;
 	font-size: 12px;
 	background-color: #edf0f1;
@@ -357,7 +357,7 @@ input[type=submit] {
 #checkFinish {
 	color: #2196F3;
 }
-#billAgain,#billNow {
+#repairAgain,#repairNow {
 	color: #2196F3;
 }
 #checkWarranty {	
