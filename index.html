@@ -85,11 +85,11 @@
 				<textarea name="description" cols="23" rows="4" placeholder="请输入故障描述" required="required"></textarea><br>
 				<label for="reserveTime">预约时间:</label>
 				<input type="datetime-local" name="reserveTime" placeholder="请输入预约时间" required="required"><br>
-				<label for="companyName">维修公司:</label>
-				<select name="companyName" required="required">
-					<option value="广州飞元维修公司">广州飞元维修公司</option>
-					<option value="广州葆力维修公司">广州葆力维修公司</option>
-					<option value="广州峰星维修公司">广州峰星维修公司</option>
+				<label for="companyId">维修公司:</label>
+				<select name="companyId" required="required">
+					<option value=1>广州飞元维修公司</option>
+					<option value=2>广州葆力维修公司</option>
+					<option value=3>广州峰星维修公司</option>
 				</select><br>
 				<label for="phone">联系电话:</label>
 				<input type="phone" name="phone" placeholder="请输入联系电话" required="required"><br>
@@ -134,7 +134,7 @@
 				<i class="iconfont" id="close-btn">&#xe6df;</i>
 				<span class="form-title">感谢您的积极反馈</span><hr>
 				<label for="feedback">反馈: </label>
-				<textarea name="feedback" cols="23" rows="6" placeholder="请输入反馈" required="required"></textarea><br> 
+				<textarea if="feedback-content" name="feedback" cols="23" rows="6" placeholder="请输入反馈" required="required"></textarea><br> 
 				<input type="submit" id="feedback-submit" value="提交">
 			</form>
 
