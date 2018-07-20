@@ -73,26 +73,7 @@ function Render() {
 		//渲染报修单列表
 		if(el == '.report-list'){
 			$('#page').html('<ul class="report-list"><div class="report-detail"></ul></div>');
-			/*
-			$.ajax({
-				type: "GET",
-				url:fyToolUrl,
-				cache: false, //禁用缓存
-				async:false,
-				data: param, //传入组装的参数
-				dataType: "json",
-				success: function (result) {
-					console.log(result);
-					//RepairList = JSON.parse(result);
-				},
-				complete:function(){
-				
-				},
-				error: function(){//请求出错处理
-					
-				}
-			});
-		*/
+		
 			if(localStorage.s_report) {
 				items = getJSONArray('s_report');
 				for(var i=0,len=items.length;i<len;i++){
@@ -111,26 +92,7 @@ function Render() {
 		//渲染设备列表		
 		}else if(el == '.equipment-list'){
 			$('#page').html('<ul class="equipment-list"></ul> <div class="equipment-detail"></div>');
-			/*
-			$.ajax({
-				type: "GET",
-				url:fyToolUrl,
-				cache: false, //禁用缓存
-				async:false,
-				data: param, //传入组装的参数
-				dataType: "json",
-				success: function (result) {
-					console.log(result);
-					//EquipmentList = JSON.parse(result);
-				},
-				complete:function(){
-				
-				},
-				error: function(){//请求出错处理
-					
-				}
-			});
-*/
+		
 			if(localStorage.s_equipment) {	
 				items = getJSONArray('s_equipment');					
 				for(var i=0; i<items.length; i++) {	
@@ -161,27 +123,6 @@ function Model() {
 			var arr = JSON.parse(localStorage[type]);
 			arr.push(data);
 			localStorage[type] = JSON.stringify(arr);
-			/*
-			// RepairList.push(data)
-			$.ajax({
-				type: "POST",
-				url:fyToolUrl,
-				cache: false, //禁用缓存
-				async:false,
-				data: RepairtList, //传入组装的参数
-				dataType: "json",
-				success: function (result) {
-					console.log(result);
-					//items = JSON.parse(result);
-				},
-				complete:function(){
-				
-				},
-				error: function(){//请求出错处理
-					
-				}
-			});
-			*/
 		}
 		else{
 			localStorage[type] = [data];
@@ -199,27 +140,7 @@ function Model() {
 		localStorage[type] = JSON.stringify(arr);
 		if(type == 's_report') {	
 			render.init('.report-list');
-			/*
-			// RepairList.splice(index,1)
-			$.ajax({
-				type: "POST",
-				url:fyToolUrl,
-				cache: false, //禁用缓存
-				async:false,
-				data: RepairtList, //传入组装的参数
-				dataType: "json",
-				success: function (result) {
-					console.log(result);
-					//items = JSON.parse(result);
-				},
-				complete:function(){
-				
-				},
-				error: function(){//请求出错处理
-					
-				}
-			});
-			*/
+		
 		}else if(type == 's_equipment') {
 			render.init('.equipment-list');
 		}
@@ -711,42 +632,3 @@ $('#scan-add-btn').click(function(e){
 	}
 });
 
-/*
-$('#report-form').fadeIn(100).on('click',function(e){
-		e.stopPropagation();
-		//捕获以及处理在详细信息上的点击事件
-		switch($(e.target).attr('id'))
-		{	
-			case 'cover':
-			case 'close-btn':
-				$('.cover').unbind().fadeOut(100);
-				$('#report-form').unbind().fadeOut(100);
-				break;
-			//点击提交报修单
-			case 'report-submit':
-				var reportData = {};
-				var t = $('#report-form').serializeArray();
-				$.each(t, function () {
-			        reportData[this.name] = this.value;
-				});
-				console.log(reportData);
-				//userId是固定的？？？？
-				reportData.userId = userId;
-				reportData.equipmentId = equipmentId;
-			    reportData.reportId = 9999;
-				reportData.reportTime = formatTime(new Date());
-			    reportData.reportStatus = 0;
-				//设置预约时间的格式
-				if (reportData.reserveTime !== "") {
-					reportData.reserveTime = t[3].value.replace(/T/,' ') + ':00';
-				}
-				reportData.equipmentTypeId = +reportData.equipmentTypeId;
-				reportData.report = {};
-			    model.addItem('s_report',reportData);
-			    $('.cover').unbind().fadeOut(100);
-				$('#report-form').unbind().fadeOut(100);
-				PageFunc('report');
-				break;
-		}	
-	});
-	*/
