@@ -17,9 +17,6 @@ var model = Model(),
 //console.log(localStorage.s_equipment);
 console.log(JSON.parse(localStorage.s_equipment));
 
-//初始化页面
-render.init('.report-list');
-
 //页面呼出函数
 var PageFunc = function (type) {
 	if(type == 'report'){		
