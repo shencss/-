@@ -10,8 +10,10 @@ var model = Model(),
 
 //数据初始化
 
+//companyId
+
 //localStorage.s_equipment = '[{"equipmentId":322,"owner":456,"model":"B50","name":"联想笔记本","equipmentTypeId":2,"company":"联想(中国)有限公司","components":[{"name":"内存条","partId":3221,"startTime":"2018-01-01 00:00:00","endTime":"2018-07-01 00:00:00","status":1},{"name":"显示屏","partId":3222,"startTime":"2018-03-01 00:00:00","endTime":"2018-12-07 00:00:00","status":0}],"history":[{"equipmentId":322,"reportId":8900,"repairingTime":"2018-07-05 10:58:00","companyName":"广州飞元维修公司","cost":"78.00元","description":"无法正常开机"},{"equipmentId":322,"reportId":8901,"repairingTime":"2018-07-06 10:00:00","companyName":"广州飞元维修公司","cost":"102.00元","description":"屏幕闪屏"}]}]';
-//localStorage.s_report = '[{"userId":456,"reportId":8900,"reportTime":"2018-07-05 10:51:00","reportStatus":4,"equipmentId": 322,"equipmentTypeId":2,"equipmentName":"联想笔记本","description":"无法正常开机","reserveTime":"2018-07-07 17:00:00","companyName":"广州飞元维修公司","phone":"1300000000","address":"华南理工大学B8学院楼101","repairNote":"曾经维修过一次","report":{"completionId":1212,"reportTime":"2018-7-12 14:00:00","repairerId":"4450","equipmentId":"322","description":"主板局部短路，导致无法正常开机","cost":"78元"}},{"userId":457,"reportId":8905,"reportTime":"2018-07-05 10:54:00","reportStatus": 0,"equipmentId": 323,"equipmentTypeId":2,"equipmentName":"戴尔笔记本","description":"音响失灵，无法正常播音","reserveTime":"2018-07-08 14:30:00","companyName":"广州飞元维修公司","phone":"13011111111","address":"华南理工大学B8学院楼201","repairNote":"无","report":{}},{"userId":458,"reportId":8907,"reportTime":"2018-07-05 10:58:00","reportStatus": 0,"equipmentId": 324,"equipmentTypeId":6,"equipmentName":"惠普显示屏","description":"颜色无法正常显示","reserveTime":"2018-07-06 13:00:00","companyName":"广州葆力维修公司","phone":"13022222222","address":"华南理工大学B8学院楼102","repairNote":"请尽快上门维修","report":{}}]';
+//localStorage.s_report = '[{"userId":456,"reportId":8900,"reportTime":"2018-07-05 10:51:00","reportStatus":4,"equipmentId": 322,"equipmentTypeId":2,"equipmentName":"联想笔记本","description":"无法正常开机","reserveTime":"2018-07-07 17:00:00","companyName":"广州飞元维修公司","phone":"1300000000","address":"华南理工大学B8学院楼101","repairNote":"曾经维修过一次","report":{"completionId":1212,"reportTime":"2018-7-12 14:00:00","repairerId":"4450","equipmentId":"322","description":"主板局部短路，导致无法正常开机","cost":"78元"}},{"userId":458,"reportId":8903,"reportTime":"2018-07-05 10:52:00","reportStatus": 5,"equipmentId": 321,"equipmentTypeId":4,"equipmentName":"海尔冰箱","description":"冰箱开门内灯不亮","reserveTime":"2018-07-07 14:00:00","companyName":"广州葆力维修公司","phone":"13011111111","address":"华南理工大学B8学院楼104","repairNote":"以前出现过，但是自己好了","report":{}},{"userId":457,"reportId":8905,"reportTime":"2018-07-05 10:54:00","reportStatus": 0,"equipmentId": 323,"equipmentTypeId":2,"equipmentName":"戴尔笔记本","description":"音响失灵，无法正常播音","reserveTime":"2018-07-08 14:30:00","companyName":"广州飞元维修公司","phone":"13011111111","address":"华南理工大学B8学院楼201","repairNote":"无","report":{}},{"userId":458,"reportId":8907,"reportTime":"2018-07-05 10:58:00","reportStatus": 0,"equipmentId": 324,"equipmentTypeId":6,"equipmentName":"惠普显示屏","description":"颜色无法正常显示","reserveTime":"2018-07-06 13:00:00","companyName":"广州葆力维修公司","phone":"13022222222","address":"华南理工大学B8学院楼102","repairNote":"请尽快上门维修","report":{}}]';
 //console.log(localStorage.s_equipment);
 console.log(JSON.parse(localStorage.s_equipment));
 
@@ -23,7 +25,7 @@ var PageFunc = function (type) {
 	if(type == 'report'){		
 		$('.title').text('我的报单');
 		$('#nav-report').css('color','#2196F3').siblings().css('color','#999');
-		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="scan-btn">&#xe722;</i>');	
+		$('#scan-add-btn').css('visibility','visible').html('<i class="iconfont" id="scan-btn">&#xe6d7;</i>');	
 		render.init('.report-list');
 		$('#take-report-now').css('bottom','50px');
 
@@ -100,7 +102,9 @@ function Render() {
 					item = items[i];
 					if(item.reportStatus === 4) {
 						$(el).prepend('<li class="report-item"><span class="item-title" >'+item.reportId+'</span><span class="item-status">'+status[item.reportStatus]+'</span><br><span class="item-time">'+item.equipmentName+' '+item.reportTime.substr(5,11)+'</span><span class="report-control" data="'+i+'"><button id="checkReport" >查看</button></span></li>');
-					}else {
+					}else if(item.reportStatus === 5) {
+						$(el).prepend('<li class="report-item"><span class="item-title" >'+item.reportId+'</span><span class="item-status">'+status[item.reportStatus]+'</span><br><span class="item-time">'+item.equipmentName+' '+item.reportTime.substr(5,11)+'</span><span class="report-control" data="'+i+'"><button id="checkReport" >查看</button><button id="deleteReport">删除</button></span></li>');
+					} else {
 						$(el).prepend('<li class="report-item"><span class="item-title" >'+item.reportId+'</span><span class="item-status">'+status[item.reportStatus]+'</span><br><span class="item-time">'+item.equipmentName+' '+item.reportTime.substr(5,11)+'</span><span class="report-control" data="'+i+'"><button id="checkReport" >查看</button><button id="cancelReport">撤销</button></span></li>');
 					}
 				}
@@ -141,7 +145,7 @@ function Render() {
 			}	
 		//渲染出联系我们页面	
 		} else if(el == '.contact') {
-			$('#page').html('<div class="contact"><div id="service"><i class="iconfont">&#xe6f0;</i><span>联系客服</span></div><div id="company"><i class="iconfont">&#xe6f0;</i><span>查看维修机构</span></div><div id="complaints"><i class="iconfont">&#xe6e5;</i><span>投诉与建议</span></div><form action="" id="complaints-form" target="frameFile"><i class="iconfont" id="close-btn">&#xe6df;</i><span class="form-title">感谢您的投诉与建议</span><hr><label for="complaints">投诉建议:</label><textarea name="complaints" cols="23" rows="4" placeholder="请输入投诉与建议"></textarea><br><input type="submit" id="complaints-submit" value="提交"></form></div>');
+			$('#page').html('<div class="contact"><div id="service"><i class="iconfont">&#xe6f0;</i><span>联系客服</span></div><div id="company"><i class="iconfont">&#xe6ff</i><span>查看维修机构</span></div><div id="complaints"><i class="iconfont">&#xe6e5;</i><span>投诉与建议</span></div><form action="" id="complaints-form" target="frameFile"><i class="iconfont" id="close-btn">&#xe6df;</i><span class="form-title">感谢您的投诉与建议</span><hr><label for="complaints">投诉建议:</label><textarea name="complaints" cols="23" rows="4" placeholder="请输入投诉与建议"></textarea><br><input type="submit" id="complaints-submit" value="提交"></form></div>');
 			$('.contact').on('click','div',contactControl);
 		} 
 	}
@@ -192,7 +196,7 @@ function Model() {
 		}
 	};
 	//删除
-	var clearItem = function(type, index) {
+	var deleteItem = function(type, index) {
 		var arr = JSON.parse(localStorage[type]);
 		arr.splice(index,1);
 		localStorage[type] = JSON.stringify(arr);
@@ -223,9 +227,17 @@ function Model() {
 			render.init('.equipment-list');
 		}
 	};
+
+	var cancelItem = function(index) {
+		var arr = JSON.parse(localStorage.s_report);
+		arr[index].reportStatus = 5;
+		localStorage.s_report = JSON.stringify(arr);
+		render.init('.report-list');
+	}
 	return {
 		addItem:addItem,
-		clearItem: clearItem
+		deleteItem: deleteItem,
+		cancelItem:cancelItem
 	};
 }
 
@@ -239,11 +251,13 @@ var setItemDetail = function(listName,index){
 			detailItem = getJSONArray('s_report')[index];
 		}
 		$('.report-detail').html('<i class="iconfont" id="close-btn">&#xe6df;</i><span class="table-title">订单详细信息</span><hr><div class="table-container"><table><tr><th>订单编号</th><td id="reportId">'+detailItem.reportId+'</td></tr><tr><th>订单时间</th><td id="reportTime">'+detailItem.reportTime+'</td></tr><tr><th>订单状态</th><td id="reportStatus">'+status[detailItem.reportStatus]+'</td></tr><tr><th>设备名称</th><td id="equipmentName">'+detailItem.equipmentName+'</td></tr><tr><th>设备类型</th><td id="equipmentType">'+type[detailItem.equipmentTypeId-1]+'</td><tr><th>维修机构</th><td id="companyName">'+detailItem.companyName+'</td></tr><tr><th>预约时间</th><td id="reserveTime">'+detailItem.reserveTime+'</td></tr><tr><th>维修地址</th><td id="address">'+detailItem.address+'</td></tr><tr><th>联系电话</th><td id="phone">'+detailItem.phone+'</td></tr><tr><th>故障描述</th><td id="description">'+detailItem.description+'</td></tr><tr><th id="repairNote">备注信息</th><td>'+detailItem.repairNote+'</td></tr></table></div><hr><div class="detail-btns"><button id="contactService">联系客服</button></div>');
-		if(detailItem.reportStatus != 4){
-			$('.detail-btns').append('<button id="cancelReport">撤销订单</button>');
-		}else {
+		if(detailItem.reportStatus == 5){
+			$('.detail-btns').append('<button id="deleteReport">删除订单</button>');
+		}else if(detailItem.reportStatus === 4){
 			$('.detail-btns').prepend('<button id="reportAgain">再次报修</button>')
 			$('.detail-btns').append('<button id="checkFinish">完工报告</button>');
+		} else {
+			$('.detail-btns').append('<button id="cancelReport">撤销订单</button>');
 		}
 	}else if(listName == 'equipment'){
 		if(localStorage.s_equipment) {
@@ -288,11 +302,10 @@ function reportControl(event){
 						$('.cover').unbind();
 						$('.report-detail').unbind().fadeOut(100);
 						var item = getJSONArray('s_report')[reportIndex];
-						console.log(item)
 						takereport(e,item.equipmentName,item.equipmentTypeId,item.description,item.companyName,item.phone,item.address,item.repairNote,item.userId,item.equipmentId);
 					break;
-					//点击撤销报单
-					case 'cancelReport':
+					//点击删除报单
+					case 'deleteReport':
 						$('.cover').unbind();
 						$('.report-detail').unbind().fadeOut(100);
 						$('.prompt').css('bottom','50px').on('click',function(e){
@@ -304,8 +317,8 @@ function reportControl(event){
 									$('.cover').unbind().fadeOut(100);
 									break;
 								case 'ok':
-								//删除一条报修单
-									model.clearItem('s_report',reportIndex);
+									//删除一条报修单
+									model.deleteItem('s_report',reportIndex);
 									$('.prompt').css('bottom','-150px');
 									$('.cover').unbind().fadeOut(200);
 									break;
@@ -350,10 +363,54 @@ function reportControl(event){
 							}
 						})
 						break;
+						//点击撤销	
+						case 'cancelReport':
+						$('.cover').fadeIn(200).click(function() {
+							$('.cover').unbind().fadeOut(200);
+							$('.prompt').unbind().css('bottom','-150px');
+						});
+						$('.prompt').css('bottom','50px').on('click',function(e){
+							switch($(e.target).attr('id'))
+							{
+								case 'no':
+									$('.cover').unbind().fadeOut(200);
+									$('.prompt').unbind().css('bottom','-150px');
+									break;
+								case 'ok':
+									//撤销一条报修单
+									model.cancelItem(reportIndex);
+									$('.cover').unbind().fadeOut(200);
+									$('.prompt').unbind().css('bottom','-150px');
+									break;
+							}					
+						});
+						break;
 				}	
 			});
 			break;
-		//点击撤销
+		//点击删除
+		case 'deleteReport':
+			$('.cover').fadeIn(200).click(function() {
+				$('.cover').unbind().fadeOut(200);
+				$('.prompt').unbind().css('bottom','-150px');
+			});
+			$('.prompt').css('bottom','50px').on('click',function(e){
+				switch($(e.target).attr('id'))
+				{
+					case 'no':
+						$('.cover').unbind().fadeOut(200);
+						$('.prompt').unbind().css('bottom','-150px');
+						break;
+					case 'ok':
+						//删除一条报修单
+						model.deleteItem('s_report',reportIndex);
+						$('.cover').unbind().fadeOut(200);
+						$('.prompt').unbind().css('bottom','-150px');
+						break;
+				}					
+			});
+			break;	
+		//点击撤销	
 		case 'cancelReport':
 			$('.cover').fadeIn(200).click(function() {
 				$('.cover').unbind().fadeOut(200);
@@ -367,14 +424,14 @@ function reportControl(event){
 						$('.prompt').unbind().css('bottom','-150px');
 						break;
 					case 'ok':
-					//删除一条报修单
-						model.clearItem('s_report',reportIndex);
+						//撤销一条报修单
+						model.cancelItem(reportIndex);
 						$('.cover').unbind().fadeOut(200);
 						$('.prompt').unbind().css('bottom','-150px');
 						break;
 				}					
 			});
-			break;		
+			break;
 	}
 };
 
@@ -421,7 +478,7 @@ function equipmentControl(event){
 									break;
 								case 'ok':
 								//删除一条报修单
-									model.clearItem('s_equipment',equipmentIndex);
+									model.deleteItem('s_equipment',equipmentIndex);
 									$('.prompt').css('bottom','-150px');
 									$('.cover').unbind().fadeOut(200);
 									break;
@@ -499,7 +556,7 @@ function equipmentControl(event){
 						break;
 					case 'ok':
 					//删除一个设备
-						model.clearItem('s_equipment',equipmentIndex);
+						model.deleteItem('s_equipment',equipmentIndex);
 						$('.cover').unbind().fadeOut(200);
 						$('.prompt').unbind().css('bottom','-150px');
 						break;
@@ -588,7 +645,77 @@ function takereport(e,name,type,description,company,phone,address,note,userId,eq
 		$('.cover').unbind().fadeOut(100);
 		$('#report-form').unbind().fadeOut(100);
 	});
-	$('#report-form').fadeIn(100).on('click',function(e){
+	$('#report-form').fadeIn(100).submit(function(){
+		//处理数据
+		var reportData = {};
+		var t = $('#report-form').serializeArray();
+		$.each(t, function () {
+			reportData[this.name] = this.value;
+		});
+		console.log(reportData);
+		reportData.userId = userId;
+		reportData.equipmentId = equipmentId;
+		reportData.reportId = 9999;
+		reportData.reportTime = formatTime(new Date());
+		reportData.reportStatus = 0;
+		//设置预约时间的格式
+		if (reportData.reserveTime !== "") {
+			reportData.reserveTime = t[3].value.replace(/T/,' ') + ':00';
+		}
+		reportData.equipmentTypeId = +reportData.equipmentTypeId;
+		reportData.report = {};
+		model.addItem('s_report',reportData);
+		$('.cover').unbind().fadeOut(100);
+		$('#report-form').unbind().fadeOut(100);
+		PageFunc('report');
+	}).click(function(e) {
+		if ($(e.target).attr('id') === 'close-btn') {
+			$('.cover').unbind().fadeOut(100);
+			$('#report-form').unbind().fadeOut(100);
+		}
+	});
+}
+//点击悬浮圆圈报修
+$('#take-report-now').click(takereport);
+//点击添加设备以及扫码
+$('#scan-add-btn').click(function(e){
+	switch($(this).children().attr('id')){
+		case 'add-btn':
+			$('.cover').fadeIn(100).click(function() {
+				$('.cover').unbind().fadeOut(100);
+				$('#equipment-form').fadeOut(100);
+			});
+			$('#equipment-form').fadeIn(100).submit(function(e){
+				console.log("Asdfsadf");
+				//处理数据
+				var equipmentData = {};
+				var t = $('#equipment-form').serializeArray();
+				$.each(t, function () {
+					equipmentData[this.name] = this.value;
+				});
+				equipmentData.owner = 456;
+				equipmentData.equipmentTypeId = +equipmentData.equipmentTypeId;
+				equipmentData.equipmentId = 323;
+				equipmentData.model = "点击填写";
+				equipmentData.company = "点击填写"
+				equipmentData.components = [];
+				equipmentData.history = [];
+				model.addItem('s_equipment',equipmentData);
+				$('.cover').unbind().fadeOut(100);
+				$('#equipment-form').unbind().fadeOut(100);
+			}).click(function(e) {
+				if ($(e.target).attr('id') === 'close-btn') {
+					$('.cover').unbind().fadeOut(100);
+					$('#equipment-form').unbind().fadeOut(100);
+				}
+			});
+			break;
+		case 'scan-btn':
+	}
+});
+
+/*
+$('#report-form').fadeIn(100).on('click',function(e){
 		e.stopPropagation();
 		//捕获以及处理在详细信息上的点击事件
 		switch($(e.target).attr('id'))
@@ -625,49 +752,4 @@ function takereport(e,name,type,description,company,phone,address,note,userId,eq
 				break;
 		}	
 	});
-}
-//点击悬浮圆圈报修
-$('#take-report-now').click(takereport);
-//点击添加设备以及扫码
-$('#scan-add-btn').click(function(e){
-	switch($(this).children().attr('id')){
-		case 'add-btn':
-			$('.cover').fadeIn(100).click(function() {
-				$('.cover').unbind().fadeOut(100);
-				$('#equipment-form').unbind().fadeOut(100);
-			});
-			$('#equipment-form').fadeIn(100).on('click',function(e){
-				e.stopPropagation();
-				//捕获以及处理在详细信息上的点击事件
-				switch($(e.target).attr('id'))
-				{	
-					case 'cover':
-					case 'close-btn':
-						$('.cover').unbind().fadeOut(100);
-						$('#equipment-form').unbind().fadeOut(100);
-						break;
-					//点击提交设备
-					case 'equipment-submit':
-						var equipmentData = {};
-						var t = $('#equipment-form').serializeArray();
-						$.each(t, function () {
-					        equipmentData[this.name] = this.value;
-						});
-						equipmentData.owner = 456;
-						equipmentData.equipmentTypeId = +equipmentData.equipmentTypeId;
-						equipmentData.equipmentId = 323;
-						equipmentData.model = "点击填写";
-						equipmentData.company = "点击填写"
-						equipmentData.components = [];
-					    equipmentData.history = [];
-					    model.addItem('s_equipment',equipmentData);
-					    $('.cover').unbind().fadeOut(100);
-					    $('#equipment-form').unbind().fadeOut(100);
-						break;
-				}	
-			});
-			break;
-		case 'scan-btn':
-	}
-});
-
+	*/
