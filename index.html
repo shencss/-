@@ -17,7 +17,7 @@
 
 		<div class="nav">
 			<ul class="nav-list">
-					<li class="nav-item" id="nav-repair">
+					<li class="nav-item" id="nav-report">
 						<i class="iconfont">&#xe6de;</i>
 						<span class="nav-text">我的报单</span>
 					</li>
@@ -37,10 +37,10 @@
 			<div id="page">
 				<!--
 					-- 报单列表 --
-				<ul class="repair-list">
+				<ul class="report-list">
 					
 					-- 订单详细table --
-					<div class="repair-detail"></div>
+					<div class="report-detail"></div>
 
 				</ul>
 				
@@ -63,12 +63,12 @@
 				-->
 			</div>
 
-			<button id="take-repair-now">报修</button>
+			<button id="take-report-now">报修</button>
 
 			<!-- 这个iframe是为了表单提交时不刷新页面 -->
 			<iframe name='frameFile' style='display: none;'></iframe>
 
-			<form action="" id="repair-form" target="frameFile">
+			<form action="" id="report-form" target="frameFile">
 				<i class="iconfont" id="close-btn">&#xe6df;</i>
 				<span class="form-title">请填写报单信息</span><hr>
 				<label for="equipmentName">设备名称:</label>
@@ -99,7 +99,7 @@
 				<input type="address" name="address" placeholder="请输入维修地址" required="required"><br>
 				<label for="repairNote">其他备注:</label>
 				<textarea name="repairNote" cols="23" rows="4" placeholder="请输入备注信息"></textarea><br>
-				<input type="submit" id="repair-submit" value="提交">
+				<input type="submit" id="report-submit" value="提交">
 			</form>
 
 			<form action="" id="equipment-form" target="frameFile">

@@ -173,14 +173,14 @@ input[type=submit] {
 #no {
 	color: #2196F3;
 }
-.repair-list,.equipment-list{
+.report-list,.equipment-list{
 	
 	padding: 0;
 	margin: 0 auto;
 	z-index: 1;
 }
 
-.repair-item,.equipment-item {
+.report-item,.equipment-item {
 
 	height: 60px;
 	padding: 8px 8px;
@@ -190,7 +190,7 @@ input[type=submit] {
 	vertical-align: middle;
 }
 
-.repair-item span,.equipment-item span{
+.report-item span,.equipment-item span{
 	display: inline-block;
 	vertical-align: middle;
 	line-height: 15px;
@@ -207,14 +207,14 @@ input[type=submit] {
 	
 	font-size: 18px;
 }
-.repair-control,.equipment-control {
+.report-control,.equipment-control {
 	float: right;
 	vertical-align: middle;
 	position: relative;
 	top: 2.5px;
 }
 
-.repair-item button,.equipment-item button{
+.report-item button,.equipment-item button{
 	border-radius: 3px;
 	margin:0 5px;
 	height: 25px;
@@ -226,11 +226,11 @@ input[type=submit] {
 	line-height: 23px;
 	cursor: pointer;
 }
-#checkrepair,#checkequipment {
+#checkreport,#checkequipment {
 	border: .5px solid #a0cf67;
 	color: #a0cf67;
 }
-#cancelrepair {
+#cancelreport {
 	border: .5px solid #ff9966;
 	color: #ff9966;
 }
@@ -245,7 +245,7 @@ input[type=submit] {
 	float: left;
 }
 
-#take-repair-now {
+#take-report-now {
 	position: fixed;
 	bottom: 50px;
 	left: 50%;
@@ -263,7 +263,7 @@ input[type=submit] {
 	z-index: 2;
 	transition: bottom .5s ease-in-out;
 }
-.repair-detail,.equipment-detail {
+.report-detail,.equipment-detail {
 	position: fixed;
     left: 50%;
     top: 50%;
@@ -294,19 +294,19 @@ input[type=submit] {
 	max-height: 350px;
 	overflow-y: scroll;
 }
-.repair-detail table,.equipment-detail table{
+.report-detail table,.equipment-detail table{
 	width: 95%;
 	padding: 5px;
 	margin: 0 auto;
 	font-size: 15px;
 }
-.repair-detail th,.equipment-detail th {
+.report-detail th,.equipment-detail th {
 	margin: 3.5px;
 	float: left;
 	font-weight: 200;
 	color: #888;
 }
- .repair-detail td,.equipment-detail td {
+ .report-detail td,.equipment-detail td {
 	color: #000;
 	font-weight: 400;
 	margin: 3.5px;
@@ -357,7 +357,7 @@ input[type=submit] {
 #checkFinish {
 	color: #2196F3;
 }
-#repairAgain,#repairNow {
+#reportAgain,#reportNow {
 	color: #2196F3;
 }
 #checkWarranty {	
