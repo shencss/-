@@ -226,11 +226,11 @@ input[type=submit] {
 	line-height: 23px;
 	cursor: pointer;
 }
-#checkreport,#checkequipment {
+#checkReport,#checkEquipment {
 	border: .5px solid #a0cf67;
 	color: #a0cf67;
 }
-#cancelreport {
+#cancelReport,#deleteEquipment {
 	border: .5px solid #ff9966;
 	color: #ff9966;
 }
@@ -291,7 +291,7 @@ input[type=submit] {
 	cursor: pointer;
 }
 .table-container {
-	max-height: 350px;
+	max-height: 355px;
 	overflow-y: scroll;
 }
 .report-detail table,.equipment-detail table{
@@ -455,6 +455,22 @@ input[type=submit] {
 	margin: 0;
 	font-size: 10px;
 	font-weight: 100;
+}
+
+.editable {
+	padding: 5px;
+	margin: 0;
+    font-weight: 400;
+    margin: 3.5px;
+    float: right;
+    max-width: 70%;
+    text-align: left;
+    word-break: break-all;
+    word-wrap: break-word;
+    height: 15px;
+	width: 180px;
+	border: 1px solid #2196F3;
+	border-radius: 5px;
 }
 
 @font-face {font-family: 'iconfont';
